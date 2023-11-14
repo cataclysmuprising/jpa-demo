@@ -1,0 +1,50 @@
+# Primary DataSource config
+datasource:
+  primary:
+    type: com.zaxxer.hikari.HikariDataSource
+    jdbc-url: jdbc:postgresql://localhost:5432/jpa_demo?currentSchema=jpa_demo
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    destroy-method: shutdown
+    connection-test-query: SELECT 1
+    poolName: PrimaryDataSourceJPAHikariCP
+    connection-timeout: 30000
+    minimumIdle: 5
+    maximum-pool-size: 10
+    idleTimeout: 30000
+    maxLifetime: 2000000
+    useServerPrepStmts: true
+    cachePrepStmts: true
+    prepStmtCacheSize: 250
+    prepStmtCacheSqlLimit: 2048
+    useUnicode: true
+    characterEncoding: utf-8
+
+# Hibernate and JPA Settings
+spring:
+  jpa:
+    properties:
+      hibernate:
+        query:
+          fail_on_pagination_over_collection_fetch: false
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        show_sql: false # enable with logger
+        format_sql: true # 'true' for dev purpose
+        hbm2ddl:
+          auto: none
+        ejb:
+          naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+        temp:
+          use_jdbc_metadata_defaults: false #Disabling contextual LOB creation error
+        bytecode:
+          use_reflection_optimizer: false
+  # Flyway Migrate Settings
+  flyway:
+    url: ${datasource.primary.jdbc-url}
+    user: ${datasource.primary.username}
+    password: ${datasource.primary.password}
+    driver-class-name: ${datasource.primary.driver-class-name}
+    encoding: UTF-8
+    enabled: true
+    locations: classpath:/migration
