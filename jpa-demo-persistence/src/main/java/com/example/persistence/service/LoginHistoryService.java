@@ -14,14 +14,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(transactionManager = PrimaryPersistenceContext.TX_MANAGER, rollbackFor = Exception.class)
-public class LogionHistoryService extends BaseService<LoginHistory, LoginHistoryCriteria, LoginHistoryDTO, LoginHistoryMapper> {
+public class LoginHistoryService extends BaseService<LoginHistory, LoginHistoryCriteria, LoginHistoryDTO, LoginHistoryMapper> {
 
-	private static final Logger serviceLogger = LogManager.getLogger("serviceLogs." + LogionHistoryService.class);
+	private static final Logger serviceLogger = LogManager.getLogger("serviceLogs." + LoginHistoryService.class);
 	private final LoginHistoryRepository repository;
 	private final LoginHistoryMapper mapper;
 
 	@Autowired
-	LogionHistoryService(LoginHistoryRepository repository, LoginHistoryMapper mapper) {
+	LoginHistoryService(LoginHistoryRepository repository, LoginHistoryMapper mapper) {
 		super(repository, mapper);
 		this.repository = repository;
 		this.mapper = mapper;

@@ -45,12 +45,12 @@ public class RoleUnitTest extends CommonTestBase {
 		repository.findAll(criteria.getFilter()).iterator().forEachRemaining(testLogger::info);
 	}
 
-//	@Test
-//	public void findMatchingIds() {
-//		RoleCriteria criteria = new RoleCriteria();
-//		criteria.setKeyword("user");
-//		repository.findIds(QRoleEntity.roleEntity._super, criteria.getFilter()).iterator().forEachRemaining(testLogger::info);
-//	}
+	@Test
+	public void selectRolesByActionURL() {
+		RoleCriteria criteria = new RoleCriteria();
+		criteria.setKeyword("user");
+		repository.selectRolesByActionURL("/user/1", "myapp-backend").iterator().forEachRemaining(testLogger::info);
+	}
 
 	@Test
 	public void findAllByCriteriaWithSort() {

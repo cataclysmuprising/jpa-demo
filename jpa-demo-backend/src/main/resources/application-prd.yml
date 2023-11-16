@@ -1,0 +1,15 @@
+### embedded Tomcat server settings ###
+server:
+  port: 8081
+  servlet:
+    context-path: /jpademo-app
+    jsp:
+      init-parameters:
+        development: true
+    session:
+      timeout:
+        72000s
+
+os:
+  separator: /
+

@@ -1,0 +1,158 @@
+Configutation:
+  status: warn # log level for configuration errors
+  ##### Variables #####
+  Properties:
+    Property:
+      - name: log-file-dir # directory for where to save the log files
+        value: "D:\\logs\\cherry\\cherry-app\\"
+
+      - name: default-msg-pattern
+        value: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p %c{1}:%L %m%n"
+
+      - name: backup-file-pattern # define how should rollover files
+        value: "%d{_[yyyy-MM-dd]_hh}" # must be SimpleDateFormat pattern
+
+
+  ##### Define logging appenders #####
+  Appenders:
+    # loggers for console
+    Console:
+
+      - name: root_logger
+        target: SYSTEM_OUT
+        PatternLayout:
+          Pattern: "%style{%-5p}{bold,yellow} %style{%c{1}}{bold,cyan}:%L %m%n"
+          disableAnsi: false
+
+      - name: console_app_logger
+        target: SYSTEM_OUT
+        PatternLayout:
+          Pattern: "%style{%-5p}{bold,yellow} %style{%c{1}}{bold,cyan}%highlight{:%L %m%n}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=magenta bold, DEBUG=magenta, TRACE=magenta}"
+          disableAnsi: false
+
+      - name: console_app_topup_logger
+        target: SYSTEM_OUT
+        PatternLayout:
+          Pattern: "%style{%-5p}{bold,yellow} %style{%c{1}}{bold,cyan}%highlight{:%L %m%n}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=magenta bold, DEBUG=magenta, TRACE=magenta}"
+          disableAnsi: false
+
+      - name: console_service_logger
+        target: SYSTEM_OUT
+        PatternLayout:
+          Pattern: "%style{%-5p}{bold,yellow} %style{%c{1}}{bold,cyan}%highlight{:%L %m%n}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=blue bold, DEBUG=blue, TRACE=blue}"
+          disableAnsi: false
+
+      - name: console_repository_logger
+        target: SYSTEM_OUT
+        PatternLayout:
+          Pattern: "%style{%-5p}{bold,yellow} %style{%c{1}}{bold,cyan}%highlight{:%L %m%n}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=yellow bold, DEBUG=yellow, TRACE=yellow}"
+          disableAnsi: false
+
+      - name: console_sql_logger
+        target: SYSTEM_OUT
+        PatternLayout:
+          Pattern: "%style{%-5p}{bold,yellow} %style{%c{1}}{bold,cyan}%highlight{:%L %m%n}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=green bold, DEBUG=green, TRACE=green}"
+          disableAnsi: false
+
+      - name: console_error_logger
+        target: SYSTEM_OUT
+        PatternLayout:
+          Pattern: "%style{%-5p}{bold,yellow} %style{%c{1}}{bold,cyan}%highlight{:%L %m%n}{FATAL=red blink, ERROR=red, WARN=red bold, INFO=red bold, DEBUG=red, TRACE=red}"
+          disableAnsi: false
+
+  ##### Define loggers #####
+  Loggers:
+    Root: # This is root logger. Every logs with catch up.
+      level: DEBUG
+      AppenderRef:
+        - ref: root_logger
+
+    Logger: # User defined loggers go here
+
+      - name: applicationLogs   # application Logger
+        additivity: false # don't conflicts with root logger
+        level: DEBUG
+        AppenderRef:
+          - ref: console_app_logger
+
+      - name: errorLogs  # error Logger
+        additivity: false
+        level: DEBUG
+        AppenderRef:
+          - ref: console_error_logger
+
+      - name: serviceLogs  # service Logger
+        additivity: false
+        level: DEBUG
+        AppenderRef:
+          - ref: console_service_logger
+
+      - name: repositoryLogs  # repository Logger
+        additivity: false
+        level: DEBUG
+        AppenderRef:
+          - ref: console_repository_logger
+
+      - name: com.github.cataclysmuprising.products.tamantaw.persistance # sql Logger
+        additivity: false
+        level: DEBUG
+        AppenderRef:
+          - ref: console_sql_logger
+
+      ### Spring framework ###
+      - name: org.springframework
+        level: DEBUG
+      - name: org.springframework.security
+        level: DEBUG
+      - name: org.springframework.boot.actuate
+        level: ERROR
+      - name: org.springframework.boot.autoconfigure
+        level: ERROR
+      ### Apache loggings ###
+      - name: org.apache.http # DEBUG to see full REST service requests info
+        level: DEBUG
+      - name: org.apache.commons
+        level: ERROR
+      - name: org.apache.tiles
+        level: DEBUG
+      ### Others ###
+      - name: org.apache.tomcat.util.scan.StandardJarScanner
+        level: ERROR
+      - name: org.springframework.data.convert
+        level: ERROR
+      - name: io.netty.util.internal
+        level: ERROR
+      - name: _org.springframework.web.servlet.HandlerMapping.Mappings
+        level: INFO
+      - name: org.springframework.beans.factory.support
+        level: WARN
+      - name: org.springframework.core.env.PropertySourcesPropertyResolver
+        level: WARN
+      - name: org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping
+        level: WARN
+      - name: org.springframework.aop.framework.CglibAopProxy
+        level: WARN
+      - name: org.springframework.beans.factory
+        level: INFO
+      - name: org.springframework.aop.framework.autoproxy
+        level: INFO
+      - name: org.springframework.context.annotation
+        level: INFO
+      - name: org.springframework.web.socket.messaging
+        level: INFO
+      - name: org.springframework.core.io.support.PathMatchingResourcePatternResolver
+        level: INFO
+      - name: javax.servlet.http.HttpServletRequestWrapper
+        level: WARN
+      - name: com.zaxxer # change below to DEBUG if you want to see transaction processes and connection pool properties
+        level: WARN
+      - name: org.apache.http.impl.conn.PoolingHttpClientConnectionManager
+        level: ERROR
+      - name: org.hibernate.validator.internal
+        level: ERROR
+      - name: com.sun.mail
+        level: INFO
+      - name: org.springframework.jmx.export.annotation
+        level: WARN
+      - name: SMTP
+        level: INFO

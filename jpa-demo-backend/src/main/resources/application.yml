@@ -1,0 +1,23 @@
+### Define Logger config file directory ###
+logging:
+  config: classpath:logger${os.separator}log4j2-${spring.profiles.active}.yml # this is only for development
+### application settings ###
+spring:
+  mvc:
+    ### Initialize Dispatcher servlet when application has started ###
+    servlet:
+      load-on-startup: 1
+    throw-exception-if-no-handler-found: true
+  aop:
+    proxy-target-class: true
+  main:
+    banner-mode: 'off' #disable banner
+  jmx:
+    enabled: false
+  ### disable spring-boot's multipath resolver ###
+  servlet:
+    multipart:
+      enabled: false
+  ### Set the active profile here ###
+  profiles:
+    active: dev

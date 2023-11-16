@@ -37,10 +37,9 @@ import java.util.function.Function;
 
 public abstract class AbstractRepositoryImpl<T extends AbstractEntity, C extends AbstractCriteria<?>, ID extends Serializable> extends SimpleJpaRepository<T, ID> implements AbstractRepository<T, C, ID> {
 	protected final EntityManager entityManager;
-	private final EntityPath<T> path;
-	private final Querydsl querydsl;
-
-	private final JPAQueryFactory queryFactory;
+	protected final EntityPath<T> path;
+	protected final Querydsl querydsl;
+	protected final JPAQueryFactory queryFactory;
 
 	private final QuerydslJpaPredicateExecutor<T> querydslJpaPredicateExecutor;
 

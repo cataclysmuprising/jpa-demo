@@ -30,32 +30,32 @@ public class BaseService<T extends AbstractEntity, C extends AbstractCriteria<?>
 
 	@Transactional(readOnly = true)
 	public DTO findById(long id) {
-		serviceLogger.info("Finding single entry information by using id: {}", id);
+		serviceLogger.info("Finding single entry information by using id: <{}>", id);
 		return mapper.toDTO(findEntryById(id), null);
 	}
 
 	@Transactional(readOnly = true)
 	public DTO findOne(C criteria, String... hints) {
-		serviceLogger.info("Finding single entry information by using criteria : {}", criteria);
+		serviceLogger.info("Finding single entry information by using criteria : <{}>", criteria);
 		return mapper.toDTO(repository.findOne(criteria.getFilter(), hints).orElse(null), criteria);
 	}
 
 	@Transactional(readOnly = true)
 	public List<DTO> findAll(C criteria, String... hints) {
-		serviceLogger.info("Finding multiple entry informations by using criteria : {}", criteria);
+		serviceLogger.info("Finding multiple entry informations by using criteria : <{}>", criteria);
 		return mapper.toDTO(repository.findAll(criteria.getFilter(), hints), criteria);
 	}
 
 	@Transactional(readOnly = true)
 	public PaginatedResult<DTO> findAll(C criteria, Pageable pager, String... hints) {
-		serviceLogger.info("Finding multiple entry informations by using criteria : {}", criteria);
+		serviceLogger.info("Finding multiple entry informations by using criteria : <{}>", criteria);
 		Page<T> page = repository.findAll(criteria.getFilter(), pager, hints);
 		List<DTO> entries = mapper.toDTO(page.getContent(), criteria);
 		return MapperUtils.toPaginatedResult(page, entries);
 	}
 
 	public DTO create(DTO dto, long recordRegId) {
-		serviceLogger.info("Creating a new administrator entry by using information: {}", dto);
+		serviceLogger.info("Creating a new entry by using information: <{}>", dto);
 		T newEntity = mapper.toEntity(dto);
 		newEntity.setRecordRegId(recordRegId);
 		newEntity.setRecordUpdId(recordRegId);
@@ -65,7 +65,7 @@ public class BaseService<T extends AbstractEntity, C extends AbstractCriteria<?>
 	}
 
 	public void createAll(Iterable<DTO> dtos, long recordRegId) {
-		serviceLogger.info("Creating a new administrator entries by using information: {} ", dtos);
+		serviceLogger.info("Creating new entries by using information: <{}> ", dtos);
 		List<T> entities = mapper.toEntity(dtos);
 		entities.forEach(entity -> {
 			entity.setRecordRegId(recordRegId);
@@ -86,12 +86,12 @@ public class BaseService<T extends AbstractEntity, C extends AbstractCriteria<?>
 	}
 
 	public void deleteById(Long id) {
-		serviceLogger.info("Deleting a administrator entry with id: {}", id);
+		serviceLogger.info("Deleting a administrator entry with id: <{}>", id);
 		repository.deleteById(id);
 	}
 
 	public long delete(C criteria) {
-		serviceLogger.info("Deleting multiple administrator entry with criteria: {}", criteria);
+		serviceLogger.info("Deleting multiple administrator entry with criteria: <{}>", criteria);
 		return repository.deleteByCriteria(criteria);
 	}
 

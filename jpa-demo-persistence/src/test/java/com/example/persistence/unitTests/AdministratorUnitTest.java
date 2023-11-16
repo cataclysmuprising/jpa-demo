@@ -35,7 +35,7 @@ public class AdministratorUnitTest extends CommonTestBase {
 	@Test
 	public void findOneByLoginId() {
 		//repository.findByLoginId("superuser@1001", "Administrator(administratorRoles,staticContent)").ifPresent(testLogger::info);
-		repository.findByLoginId("superuser@1001").ifPresent(testLogger::info);
+		repository.findByLoginId("superuser@1001", "Administrator(roles)").ifPresent(testLogger::info);
 	}
 
 	@Test

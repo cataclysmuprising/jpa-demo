@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional(transactionManager = PrimaryPersistenceContext.TX_MANAGER, rollbackFor = Exception.class)
 public class RoleService extends BaseService<Role, RoleCriteria, RoleDTO, RoleMapper> {
@@ -25,5 +27,11 @@ public class RoleService extends BaseService<Role, RoleCriteria, RoleDTO, RoleMa
 		super(repository, mapper);
 		this.repository = repository;
 		this.mapper = mapper;
+	}
+
+	@Transactional(readOnly = true)
+	public List<String> selectRolesByActionURL(String actionUrl, String appName) {
+		serviceLogger.info("Finding role names by given actionUrl : <{}> and appName : <{}>", actionUrl, appName);
+		return repository.selectRolesByActionURL(actionUrl, appName);
 	}
 }

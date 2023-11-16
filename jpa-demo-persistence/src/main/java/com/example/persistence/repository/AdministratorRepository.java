@@ -32,4 +32,30 @@ public class AdministratorRepository extends AbstractRepositoryImpl<Administrato
 			throw new IncorrectResultSizeDataAccessException(ex.getMessage(), 1, ex);
 		}
 	}
+
+//	public Optional<AuthenticatedClientDTO> selectAuthenticatedClient(String loginId) {
+//		try {
+//			QRole role = QRole.role;
+//			QAdministrator admin = QAdministrator.administrator;
+//			QAdministratorRole adminRole = QAdministratorRole.administratorRole;
+//			//@formatter:off
+//			Tuple tuple = queryFactory.select(admin.id, admin.name, admin.loginId,
+//							admin.password, admin.contentId, admin.status,
+//							Expressions.constant(0)
+//
+//					)
+//
+//					.from(admin)
+//					.leftJoin(adminRole).on(adminRole.administratorId.eq(admin.id))
+//					.leftJoin(role).on(role.id.eq(adminRole.roleId))
+//					.where(admin.loginId.eq(loginId))
+//					.groupBy(admin.id)
+//					.fetchOne();
+//			//@formatter:off
+//
+//		}
+//		catch (NonUniqueResultException ex) {
+//			throw new IncorrectResultSizeDataAccessException(ex.getMessage(), 1, ex);
+//		} return Optional.empty();
+//	}
 }

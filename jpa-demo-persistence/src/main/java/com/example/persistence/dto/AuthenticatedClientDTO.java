@@ -16,8 +16,6 @@ public class AuthenticatedClientDTO extends AbstractDTO {
 	private String loginId;
 	private String password;
 	private ClientType clientType;
-	private String nrc;
-	private String since;
 	private Long contentId;
 	private Status status;
 	private List<Long> roleIds;
