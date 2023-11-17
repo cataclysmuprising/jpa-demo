@@ -16,9 +16,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class RoleBasedAccessDecisionManager implements AuthorizationManager<RequestAuthorizationContext> {
-
 	private static final Logger applicationLogger = LogManager.getLogger("applicationLogs." + RoleBasedAccessDecisionManager.class.getName());
-	// private static final List<String> filterBlackList = Arrays.asList("/login", "/web-view", "/logout", "/error", "/api", "/accessDenied", "/ajax", "/files");
 	private final RoleService roleService;
 
 	@Override
@@ -33,7 +31,6 @@ public class RoleBasedAccessDecisionManager implements AuthorizationManager<Requ
 		applicationLogger.debug("Authentication : " + auth);
 		if (auth != null && auth.isAuthenticated() && !auth.getPrincipal().equals("anonymousUser")) {
 			String requestURL = context.getRequest().getServletPath();
-			//if (shouldIntercept(requestURL)) {
 			applicationLogger.debug("Filtering process executed by RoleBasedAccessDecisionManager for requested URL ==> {}", requestURL);
 			List<String> urlAssociatedRoles = getAssociatedRolesByUrl(requestURL);
 			if (urlAssociatedRoles == null || urlAssociatedRoles.isEmpty()) {
@@ -52,10 +49,6 @@ public class RoleBasedAccessDecisionManager implements AuthorizationManager<Requ
 				applicationLogger.debug("Access Denied : Filtered by RoleBasedAccessDecisionManager.");
 				return new AuthorizationDecision(false);
 			}
-//			}
-//			else {
-//				applicationLogger.debug("Skipping from RoleBasedAccessDecisionManager for URL ==> {}. Requested URL was defined as public.", requestURL);
-//			}
 		}
 		applicationLogger.debug("Invalid authentication : need to reauthenticate for current user.");
 		return new AuthorizationDecision(false);
@@ -75,13 +68,4 @@ public class RoleBasedAccessDecisionManager implements AuthorizationManager<Requ
 		}
 		return urlAssociatedRoles;
 	}
-
-//	private boolean shouldIntercept(String requestURL) {
-//		for (String blackUrl : filterBlackList) {
-//			if (requestURL.equals("/") || requestURL.startsWith(blackUrl)) {
-//				return false;
-//			}
-//		}
-//		return true;
-//	}
 }

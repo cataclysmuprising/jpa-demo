@@ -1,14 +1,16 @@
 package com.example.persistence.exception;
 
+import jakarta.validation.ConstraintViolation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import jakarta.validation.ConstraintViolation;
+import java.io.Serial;
 import java.util.Set;
 
 public class ValidationFailedException extends RuntimeException {
-	private static final long serialVersionUID = 4962362038607877412L;
 	private static final Logger errorLogger = LogManager.getLogger("errorLogs." + ValidationFailedException.class);
+	@Serial
+	private static final long serialVersionUID = 4142086601732680837L;
 
 	public ValidationFailedException(String message) {
 		super(message);

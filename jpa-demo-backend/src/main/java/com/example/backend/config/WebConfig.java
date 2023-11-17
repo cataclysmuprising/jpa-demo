@@ -42,10 +42,11 @@ public class WebConfig implements WebMvcConfigurer {
 		// @formatter:off
 		registry
 				.addResourceHandler("/static/**")
-				.addResourceLocations("/static/")
+				.addResourceLocations("classpath:/static/")
 				.setCacheControl(CacheControl.maxAge( Duration.ofDays(365)))
 				.resourceChain(false);
 		// @formatter:on
+
 	}
 
 	@Override

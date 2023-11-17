@@ -1,7 +1,11 @@
 package com.example.persistence.exception;
 
+import java.io.Serial;
+
 public class ConsistencyViolationException extends Exception {
-	private static final long serialVersionUID = -4061374500120185334L;
+
+	@Serial
+	private static final long serialVersionUID = 1875345929841403517L;
 
 	public ConsistencyViolationException() {
 		super();

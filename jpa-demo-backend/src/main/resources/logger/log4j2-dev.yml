@@ -4,10 +4,10 @@ Configutation:
   Properties:
     Property:
       - name: log-file-dir # directory for where to save the log files
-        value: "D:\\logs\\cherry\\cherry-app\\"
+        value: "D:\\logs\\jpademo\\jpademo-backend\\"
 
       - name: default-msg-pattern
-        value: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p %c{1}:%L %m%n"
+        value: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p %c{10}:%L %m%n"
 
       - name: backup-file-pattern # define how should rollover files
         value: "%d{_[yyyy-MM-dd]_hh}" # must be SimpleDateFormat pattern
@@ -21,43 +21,43 @@ Configutation:
       - name: root_logger
         target: SYSTEM_OUT
         PatternLayout:
-          Pattern: "%style{%-5p}{bold,yellow} %style{%c{1}}{bold,cyan}:%L %m%n"
+          Pattern: "%style{%-5p}{bold,yellow} %style{%c{10}}{bold,cyan}:%L %m%n"
           disableAnsi: false
 
       - name: console_app_logger
         target: SYSTEM_OUT
         PatternLayout:
-          Pattern: "%style{%-5p}{bold,yellow} %style{%c{1}}{bold,cyan}%highlight{:%L %m%n}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=magenta bold, DEBUG=magenta, TRACE=magenta}"
+          Pattern: "%style{%-5p}{bold,yellow} %style{%c{10}}{bold,cyan}%highlight{:%L %m%n}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=magenta bold, DEBUG=magenta, TRACE=magenta}"
           disableAnsi: false
 
       - name: console_app_topup_logger
         target: SYSTEM_OUT
         PatternLayout:
-          Pattern: "%style{%-5p}{bold,yellow} %style{%c{1}}{bold,cyan}%highlight{:%L %m%n}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=magenta bold, DEBUG=magenta, TRACE=magenta}"
+          Pattern: "%style{%-5p}{bold,yellow} %style{%c{10}}{bold,cyan}%highlight{:%L %m%n}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=magenta bold, DEBUG=magenta, TRACE=magenta}"
           disableAnsi: false
 
       - name: console_service_logger
         target: SYSTEM_OUT
         PatternLayout:
-          Pattern: "%style{%-5p}{bold,yellow} %style{%c{1}}{bold,cyan}%highlight{:%L %m%n}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=blue bold, DEBUG=blue, TRACE=blue}"
+          Pattern: "%style{%-5p}{bold,yellow} %style{%c{10}}{bold,cyan}%highlight{:%L %m%n}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=blue bold, DEBUG=blue, TRACE=blue}"
           disableAnsi: false
 
       - name: console_repository_logger
         target: SYSTEM_OUT
         PatternLayout:
-          Pattern: "%style{%-5p}{bold,yellow} %style{%c{1}}{bold,cyan}%highlight{:%L %m%n}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=yellow bold, DEBUG=yellow, TRACE=yellow}"
+          Pattern: "%style{%-5p}{bold,yellow} %style{%c{10}}{bold,cyan}%highlight{:%L %m%n}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=yellow bold, DEBUG=yellow, TRACE=yellow}"
           disableAnsi: false
 
       - name: console_sql_logger
         target: SYSTEM_OUT
         PatternLayout:
-          Pattern: "%style{%-5p}{bold,yellow} %style{%c{1}}{bold,cyan}%highlight{:%L %m%n}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=green bold, DEBUG=green, TRACE=green}"
+          Pattern: "%style{%-5p}{bold,yellow} %style{%c{10}}{bold,cyan}%highlight{:%L %m%n}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=green bold, DEBUG=green, TRACE=green}"
           disableAnsi: false
 
       - name: console_error_logger
         target: SYSTEM_OUT
         PatternLayout:
-          Pattern: "%style{%-5p}{bold,yellow} %style{%c{1}}{bold,cyan}%highlight{:%L %m%n}{FATAL=red blink, ERROR=red, WARN=red bold, INFO=red bold, DEBUG=red, TRACE=red}"
+          Pattern: "%style{%-5p}{bold,yellow} %style{%c{10}}{bold,cyan}%highlight{:%L %m%n}{FATAL=red blink, ERROR=red, WARN=red bold, INFO=red bold, DEBUG=red, TRACE=red}"
           disableAnsi: false
 
   ##### Define loggers #####
@@ -93,7 +93,7 @@ Configutation:
         AppenderRef:
           - ref: console_repository_logger
 
-      - name: com.github.cataclysmuprising.products.tamantaw.persistance # sql Logger
+      - name: org.hibernate.SQL # sql Logger
         additivity: false
         level: DEBUG
         AppenderRef:
@@ -108,51 +108,56 @@ Configutation:
         level: ERROR
       - name: org.springframework.boot.autoconfigure
         level: ERROR
-      ### Apache loggings ###
-      - name: org.apache.http # DEBUG to see full REST service requests info
-        level: DEBUG
-      - name: org.apache.commons
-        level: ERROR
-      - name: org.apache.tiles
-        level: DEBUG
-      ### Others ###
-      - name: org.apache.tomcat.util.scan.StandardJarScanner
-        level: ERROR
-      - name: org.springframework.data.convert
-        level: ERROR
-      - name: io.netty.util.internal
-        level: ERROR
-      - name: _org.springframework.web.servlet.HandlerMapping.Mappings
-        level: INFO
+      - name: org.springframework.test.context.support
+        level: WARN
       - name: org.springframework.beans.factory.support
         level: WARN
-      - name: org.springframework.core.env.PropertySourcesPropertyResolver
-        level: WARN
-      - name: org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping
-        level: WARN
-      - name: org.springframework.aop.framework.CglibAopProxy
-        level: WARN
-      - name: org.springframework.beans.factory
-        level: INFO
-      - name: org.springframework.aop.framework.autoproxy
-        level: INFO
       - name: org.springframework.context.annotation
-        level: INFO
-      - name: org.springframework.web.socket.messaging
-        level: INFO
-      - name: org.springframework.core.io.support.PathMatchingResourcePatternResolver
-        level: INFO
-      - name: javax.servlet.http.HttpServletRequestWrapper
         level: WARN
-      - name: com.zaxxer # change below to DEBUG if you want to see transaction processes and connection pool properties
+      - name: org.springframework.core.env
         level: WARN
-      - name: org.apache.http.impl.conn.PoolingHttpClientConnectionManager
+      - name: org.springframework.core.io.support
+        level: WARN
+      - name: org.springframework.aop.framework
+        level: WARN
+      - name: org.springframework.beans.factory.annotation
+        level: WARN
+      - name: org.springframework.test.context.cache
+        level: WARN
+        ### JPA ###
+      - name: org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler
+        level: INFO
+      - name: org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor
+        level: INFO
+        ### Hibernate ###
+      - name: org.hibernate
+        level: INFO
+      - name: org.hibernate.type.BasicTypeRegistry
         level: ERROR
-      - name: org.hibernate.validator.internal
-        level: ERROR
-      - name: com.sun.mail
+        # SQL statements and parameters
+      - name: org.hibernate.orm.jdbc.bind
+        level: TRACE
+      # Statistics and slow queries
+      - name: org.hibernate.stat
+        level: DEBUG
+      - name: org.hibernate.SQL_SLOW
         level: INFO
-      - name: org.springframework.jmx.export.annotation
+      # 2nd Level Cache
+      - name: org.hibernate.cache
+        level: DEBUG
+        ### Embedded Tomcat Logs ###
+      - name: org.apache.catalina
+        level: INFO
+      - name: org.apache.coyote.http11
+        level: INFO
+      - name: org.apache.tomcat.util
+        level: INFO
+        ### Others ###
+      - name: com.example.persistence
+        level: DEBUG
+      - name: com.zaxxer # change below to DEBUG if you want to see connection pool properties
         level: WARN
-      - name: SMTP
+      - name: org.flywaydb.core # flyway SQL scripts
+        level: DEBUG
+      - name: org.thymeleaf.TemplateEngine.CONFIG
         level: INFO

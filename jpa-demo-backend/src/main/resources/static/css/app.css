@@ -1,0 +1,65 @@
+/**
+ * TABLE OF CONTENTS
+ * 1) General
+ *    1.1) Fonts
+ *    1.2) Misc
+
+ * 2) Theme Override
+ * 	  2.1) Layout Styles
+ *    2.2) Misc
+
+ * 3) Custom Components
+ * 	  3.1) Required Field Label Style
+ *    3.2) DataTable Loading Icon
+ *    3.3) Function Column
+ *    3.4) DataTable detail-control
+ *    3.5) selectable table styles
+
+ * 4) Custom Rules
+ * 	  4.1) DataTable
+ * 	  4.2) Bootstrap Select
+ * 	  4.3) Autocomplete Box
+ *    4.4) Pretty CheckBox style
+ *    4.5) Bootstrap DateTimePicker
+
+ * 5) Responsive
+ **/
+
+/*###################
+ 1. General
+ ####################*/
+
+/*******************
+ 1.1 Fonts
+ *******************/
+
+@font-face {
+    font-family: 'Roboto Regular';
+    src: url('http://localhost:8081/jpademo-backend/static/fonts/Roboto-Regular/Roboto-Regular-webfont.eot');
+    src: url('http://localhost:8081/jpademo-backend/static/fonts/Roboto-Regular/Roboto-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+    url('http://localhost:8081/jpademo-backend/static/fonts/Roboto-Regular/Roboto-Regular-webfont.woff') format('woff'),
+    url('http://localhost:8081/jpademo-backend/static/fonts/Roboto-Regular/Roboto-Regular-webfont.ttf') format('truetype'),
+    url('http://localhost:8081/jpademo-backend/static/fonts/Roboto-Regular/Roboto-Regular-webfont.svg#robotoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    src: url('http://localhost:8081/jpademo-backend/static/fonts/SourceSansPro-Regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'NotoSans Myanmar';
+    font-style: normal;
+    font-size: 11px;
+    font-weight: 400;
+    src: url('http://localhost:8081/jpademo-backend/static/fonts/NotoSansMyanmar-Regular.ttf') format('truetype');
+}
+
+body {
+    font-family: 'Roboto Regular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    overflow-x: hidden;
+    overflow-y: auto;
+}

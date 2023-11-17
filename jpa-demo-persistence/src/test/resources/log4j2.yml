@@ -115,6 +115,9 @@ Configutation:
         level: WARN
       - name: org.springframework.orm.jpa.EntityManagerFactoryUtils # JPA EntityManager Status
         level: WARN
+        ### JPA ###
+      - name: org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler
+        level: INFO
         ### Hibernate ###
       - name: org.hibernate
         level: INFO

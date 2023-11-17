@@ -11,7 +11,6 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -53,11 +52,6 @@ public class SecurityConfig {
 		return configuration.getAuthenticationManager();
 	}
 
-	@Bean
-	public WebSecurityCustomizer webSecurityCustomizer() {
-		return (web) -> web.ignoring().requestMatchers("/static/**", "/css/**", "/js/**", "/images/**", "/fonts/**", "/pub/**");
-	}
-
 	//@formatter:off
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationUserService userDetailsService) throws Exception {
@@ -67,6 +61,7 @@ public class SecurityConfig {
 								 "/login*"
 								,"/accessDenied"
 								,"/error/*"
+								,"/static/**"
 								,"/pub/**").permitAll()
 
 								.requestMatchers("/sec/**")
@@ -83,22 +78,26 @@ public class SecurityConfig {
 								.failureHandler(failureHandler)
 								.successHandler(urlRequestsuccessHandler)
 								.permitAll()
-				).exceptionHandling(
+				)
+				.exceptionHandling(
 						exceptionHandler -> exceptionHandler
 								.accessDeniedPage("/accessDenied")
-				).sessionManagement(
+				)
+				.sessionManagement(
 						session -> session
 								.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
 								.sessionFixation().migrateSession()
-				).rememberMe(
+				)
+				.rememberMe(
 						remember -> remember
-								.key("ci11c2VyIiwic2NvcGUiOlsiYmFja2VuZCIsInJlYWQiLCJ3cml0ZSIsInVwZG") // hash-key
+								.key("cB11c2VyIiwic2NvcGUiOlsiYmFja2VuZCIsInJlY5QiLCJ3cmG0ZSIsInVwZG") // hash-key
 								.rememberMeCookieName(REMEMBER_ME_COOKIE)
 								.tokenValiditySeconds(4*604800) // 1 week , let the default 4 week
 								.rememberMeParameter("remember-me")
 								.userDetailsService(userDetailsService)
 								.authenticationSuccessHandler(rememberMeSuccessHandler)
-				).logout(
+				)
+				.logout(
 						logout -> logout
 								.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 								.deleteCookies(REMEMBER_ME_COOKIE)

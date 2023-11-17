@@ -4,7 +4,7 @@ Configutation:
   Properties:
     Property:
       - name: log-file-dir # directory for where to save the log files
-        value: "/opt/Tomcats/cherry/cherry-app/logs/"
+        value: "/opt/Tomcats/jpa-demo/jpademo-backend/logs/"
       - name: default-msg-pattern
         value: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p %c{1}:%L %m%n\r\n"
 
@@ -108,30 +108,6 @@ Configutation:
         level: ERROR
       - name: org.springframework.boot.autoconfigure
         level: ERROR
-      ### Apache loggings ###
-      - name: org.apache.http # DEBUG to see full REST service requests info
-        level: INFO
-      - name: org.apache.commons
-        level: ERROR
-      - name: org.apache.tiles
-        level: INFO
-        ### Mybatis loggings ###
-      - name: org.apache.ibatis.io
-        level: WARN
-      - name: org.mybatis.spring.mapper.ClassPathMapperScanner
-        level: WARN
-      - name: org.mybatis.spring.SqlSessionFactoryBean
-        level: WARN
-      - name: com.ibatis.common.jdbc.SimpleDataSource
-        level: WARN
-      - name: com.ibatis.common.jdbc.ScriptRunner
-        level: WARN
-      - name: com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate
-        level: WARN
-      - name: org.mybatis.spring.SqlSessionUtils
-        level: WARN
-      - name: org.mybatis.spring.transaction
-        level: WARN
       ### Others ###
       - name: javax.servlet.http.HttpServletRequestWrapper
         level: WARN

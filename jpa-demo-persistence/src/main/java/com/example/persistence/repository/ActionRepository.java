@@ -19,4 +19,24 @@ public class ActionRepository extends AbstractRepositoryImpl<Action, ActionCrite
 	public ActionRepository(@Qualifier(EM_FACTORY) EntityManager entityManager) {
 		super(new JpaMetamodelEntityInformation<>(Action.class, entityManager.getMetamodel(), entityManager.getEntityManagerFactory().getPersistenceUnitUtil()), entityManager);
 	}
+
+//	public List<String> selectAvailableActionsForUser(String page, String appName, List<Long> roleIds) throws BusinessException {
+//		try {
+//			QRole role = QRole.role;
+//			QAction action = QAction.action;
+//			QRoleAction roleAction = QRoleAction.roleAction;
+//			//@formatter:off
+//			return queryFactory.select(action.actionName)
+//					.from(action)
+//					.leftJoin(roleAction).on(roleAction.actionId.eq(action.id))
+//					.leftJoin(role).on(role.id.eq(roleAction.roleId))
+//					.where(action.appName.eq(appName)
+//							.and(action.actionType == Action.ActionType.))
+//					.fetch();
+//
+//		}
+//		catch (Exception e) {
+//			throw new BusinessException(e.getMessage(),e);
+//		}
+//	}
 }

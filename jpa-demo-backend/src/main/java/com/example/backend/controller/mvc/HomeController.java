@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/")
-public class HomeController {
+public class HomeController extends BaseMVCController {
 	@GetMapping
 	public String home() {
 		return "redirect:/sec/dashboard";
@@ -16,5 +16,10 @@ public class HomeController {
 	@GetMapping("/sec/dashboard")
 	public String dashboardPage(Model model) {
 		return "dashboard";
+	}
+
+	@Override
+	public void subInit(Model model) {
+		setAuthorities(model, "dashboard");
 	}
 }

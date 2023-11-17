@@ -1,7 +1,10 @@
 package com.example.persistence.exception;
 
+import java.io.Serial;
+
 public class EntryNotFoundException extends RuntimeException {
-	private static final long serialVersionUID = -4879046416449477092L;
+	@Serial
+	private static final long serialVersionUID = 3902596794255918198L;
 	private final Long id;
 
 	public EntryNotFoundException(Long id) {

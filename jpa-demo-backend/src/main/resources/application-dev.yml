@@ -3,10 +3,10 @@ spring:
     cache: false
     mode: HTML
     encoding: UTF-8
-    prefix: file:src\main\resources\templates\web\
+    prefix: file:src/main/resources/templates/web/
   web:
     resources:
-      static-locations: src\main\resources\static\
+      static-locations: src/main/resources/static/
       cache:
         period: 0
 ### embedded Tomcat server settings ###
