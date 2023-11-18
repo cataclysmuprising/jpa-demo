@@ -46,6 +46,7 @@ public class AdministratorService extends BaseService<Administrator, Administrat
 		if (administratorInfo.isPresent()) {
 			Administrator administrator = administratorInfo.get();
 			authClient = new AuthenticatedClientDTO();
+			authClient.setLoginId(administrator.getLoginId());
 			authClient.setClientType(AuthenticatedClientDTO.ClientType.ADMINISTRATOR);
 			authClient.setContentId(administrator.getContentId());
 			authClient.setId(administrator.getId());
