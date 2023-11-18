@@ -6,6 +6,7 @@ import com.example.persistence.dto.AuthenticatedClientDTO;
 import com.example.persistence.exception.BusinessException;
 import com.example.persistence.service.ActionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -15,6 +16,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 
@@ -32,6 +35,16 @@ public abstract class BaseMVCController {
 	@Autowired
 	private ActionService actionService;
 
+	private final String projectVersion;
+	private final String buildNumber;
+	@Autowired
+	private ServletContext servletContext;
+
+	public BaseMVCController() {
+		projectVersion = "1.0";
+		buildNumber = DateTimeFormatter.ofPattern("ddMMyyyy-HHmm").format(LocalDateTime.now());
+	}
+
 	@ModelAttribute
 	public void init(Model model) {
 		AuthenticatedClient loginUser = getSignInClientInfo();
@@ -45,20 +58,16 @@ public abstract class BaseMVCController {
 		subInit(model);
 	}
 
-	protected void setAuthorities(Model model, String page) {
+	protected void setAuthorities(Model model, String pageName) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth != null) {
-			model.addAttribute("page", page.toLowerCase());
+			model.addAttribute("pageName", pageName);
 			HashMap<String, Boolean> accessments = new HashMap<>();
-			// capitalize start character
-			if (!Character.isUpperCase(page.charAt(0))) {
-				page = page.substring(0, 1).toUpperCase() + page.substring(1);
-			}
 			AuthenticatedClient loginUser = getSignInClientInfo();
 			AuthenticatedClientDTO client = loginUser.getUserDetail();
 			List<String> actions = null;
 			try {
-				actions = actionService.selectAvailableActionsForUser(page, BackendApplication.APP_NAME, client.getRoleIds());
+				actions = actionService.selectAvailableActionsForUser(pageName, BackendApplication.APP_NAME, client.getRoleIds());
 			}
 			catch (BusinessException e) {
 				e.printStackTrace();
@@ -94,7 +103,11 @@ public abstract class BaseMVCController {
 	}
 
 	private void setMetaData(Model model) {
-		// set profile mode
+		model.addAttribute("contextPath", servletContext.getContextPath());
+		model.addAttribute("projectVersion", projectVersion);
+		model.addAttribute("buildNumber", buildNumber);
+		model.addAttribute("appShortName", "My Website");
+		model.addAttribute("appFullName", "My Website Backend");
 		model.addAttribute("isProduction", !"dev".equals(environment.getActiveProfiles()[0]));
 	}
 

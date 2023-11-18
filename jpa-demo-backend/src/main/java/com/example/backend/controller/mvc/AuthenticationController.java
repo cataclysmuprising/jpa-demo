@@ -1,5 +1,6 @@
 package com.example.backend.controller.mvc;
 
+import com.example.backend.utils.thymeleaf.Layout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.core.env.Environment;
@@ -19,6 +20,7 @@ public class AuthenticationController {
 	private MessageSource messageSource;
 
 	@GetMapping("/login")
+	@Layout("plain/template")
 	public String login(Model model, @RequestParam(required = false, name = "error") String error) {
 		// set profile mode
 		model.addAttribute("isProduction", !"dev".equals(environment.getActiveProfiles()[0]));

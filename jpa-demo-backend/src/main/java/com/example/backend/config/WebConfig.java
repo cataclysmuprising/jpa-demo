@@ -2,6 +2,7 @@ package com.example.backend.config;
 
 import com.example.backend.utils.converters.DateTimeConverter;
 import com.example.backend.utils.converters.LocalDateConverter;
+import com.example.backend.utils.thymeleaf.ThymeleafLayoutInterceptor;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -15,6 +16,7 @@ import org.springframework.format.FormatterRegistry;
 import org.springframework.http.CacheControl;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
@@ -35,6 +37,11 @@ public class WebConfig implements WebMvcConfigurer {
 		templateResolver.setCharacterEncoding("UTF-8");
 		templateResolver.setOrder(0);
 		return templateResolver;
+	}
+
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(new ThymeleafLayoutInterceptor());
 	}
 
 	@Override

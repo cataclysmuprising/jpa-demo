@@ -1,5 +1,6 @@
 package com.example.backend.controller.mvc;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,12 +15,12 @@ public class HomeController extends BaseMVCController {
 	}
 
 	@GetMapping("/sec/dashboard")
-	public String dashboardPage(Model model) {
+	public String dashboardPage(Model model, HttpServletRequest request) {
 		return "dashboard";
 	}
 
 	@Override
 	public void subInit(Model model) {
-		setAuthorities(model, "dashboard");
+		setAuthorities(model, "Dashboard");
 	}
 }
