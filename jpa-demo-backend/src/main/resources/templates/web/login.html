@@ -2,11 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <!-- Page Styles -->
 <div th:fragment="styles" th:remove="tag">
-    <link rel="stylesheet" th:href="@{/static/css/common/icheck-bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/static/css/app/login/page.css}">
+    <link rel="stylesheet" th:href="@{'/static/css/common/icheck-bootstrap.min.css?v='+${buildNumber}}">
+    <link rel="stylesheet" th:href="@{'/static/css/app/login/page'+ ${isProduction == true ? '.min.css' : '.css'}+'?v='+${buildNumber}}">
 </div>
 <!-- /Page Styles -->
-
 <!-- Page Scripts -->
 <div th:fragment="scripts" th:remove="tag">
 </div>

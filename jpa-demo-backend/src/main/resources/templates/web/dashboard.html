@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <!-- Page Styles -->
 <div th:fragment="styles" th:remove="tag">
-    <link rel="stylesheet" th:href="@{/static/css/app/dashboard/page.css}">
+    <link rel="stylesheet" th:href="@{'/static/css/app/dashboard/page'+ ${isProduction == true ? '.min.css' : '.css'}+'?v='+${buildNumber}}">
 </div>
 <!-- /Page Styles -->
 
 <!-- Page Scripts -->
 <div th:fragment="scripts" th:remove="tag">
-    <script th:src="@{/static/js/app/dashboard/page.js}"></script>
+    <script type="javascript" th:src="@{'/static/js/app/dashboard/page'+ ${isProduction == true ? '.min.js' : '.js'}+'?v='+${buildNumber}}"></script>
 </div>
 <!-- /Page Scripts -->
 

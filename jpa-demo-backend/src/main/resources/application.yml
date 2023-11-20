@@ -3,11 +3,6 @@ logging:
   config: classpath:logger${os.separator}log4j2-${spring.profiles.active}.yml # this is only for development
 ### application settings ###
 spring:
-  mvc:
-    ### Initialize Dispatcher servlet when application has started ###
-    servlet:
-      load-on-startup: 1
-    throw-exception-if-no-handler-found: true
   aop:
     proxy-target-class: true
   main:
@@ -20,4 +15,4 @@ spring:
       enabled: false
   ### Set the active profile here ###
   profiles:
-    active: dev
+    active: prd
