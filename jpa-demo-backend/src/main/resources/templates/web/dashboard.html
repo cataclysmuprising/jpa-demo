@@ -8,7 +8,7 @@
 
 <!-- Page Scripts -->
 <div th:fragment="scripts" th:remove="tag">
-    <script type="javascript" th:src="@{'/static/js/app/dashboard/page'+ ${isProduction == true ? '.min.js' : '.js'}+'?v='+${buildNumber}}"></script>
+    <script th:src="@{'/static/js/app/dashboard/page'+ ${isProduction == true ? '.min.js' : '.js'}+'?v='+${buildNumber}}"></script>
 </div>
 <!-- /Page Scripts -->
 
