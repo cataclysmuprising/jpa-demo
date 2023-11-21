@@ -17,7 +17,8 @@ public class PaginatedResult<DTO extends AbstractDTO> implements Serializable {
 	@Serial
 	private static final long serialVersionUID = -112619740430072473L;
 
-	private long count;
+	private long recordsTotal;
+	private long recordsFiltered;
 	private long totalPages;
 	private int size;
 	private int number;

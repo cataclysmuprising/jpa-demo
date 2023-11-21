@@ -102,8 +102,160 @@ input {
  2.1 Layout Styles
  **********************/
 
+.text-sm .nav-flat .nav-link {
+    padding: .4rem 1.4rem;
+}
+
+.sidebar-collapse .nav-link {
+    padding: .4rem 1rem;
+}
+
+.sidebar-collapse .nav-flat .nav-link {
+    padding: .4rem 1rem;
+}
+
+.text-sm .form-control, .text-sm .dropdown-menu {
+    font-size: .75rem !important;
+}
+
+.text-sm .form-control {
+    border-radius: 0;
+    line-height: 1.5;
+}
+
+.text-sm table {
+    font-size: .70rem;
+}
+
+.text-sm table td .dropdown-menu.show {
+    padding: .3rem 0;
+}
+
+.form-control:focus {
+    border-color: #6c757d;
+}
+
+.text-sm .btn {
+    font-size: .65rem !important;
+    padding: .4rem .75rem;
+    cursor: pointer;
+}
+
+.text-sm .btn:disabled, .text-sm .btn.disabled {
+    cursor: not-allowed !important;
+}
+
+.text-sm .btn:not(.btn-tool,.dropdown-toggle) {
+    padding: .375rem 1rem;
+}
+
+td .btn-group .btn:first-child {
+    padding: .4rem .75rem;
+}
+
+.text-sm .input-group-text {
+    font-size: .75rem !important;
+    padding: .175rem .75rem;
+}
+
+.text-sm .dataTable .btn.dropdown-toggle {
+    padding: .25rem .5rem;
+}
+
+.text-sm .card-title {
+    font-size: .75rem;
+}
+
+.card.card-outline-tabs .card-tools {
+    margin: auto !important;
+}
+
+.text-sm .content-header {
+    padding-bottom: 0;
+}
+
 .text-sm .content-header h1 {
-    font-size: 1.2rem;
+    font-size: 1rem;
+}
+
+.text-sm .content-wrapper > .content {
+    padding: 0 .5rem 1rem .5rem;
+}
+
+.table td, .table th {
+    border-top: 1px solid #dee2e6;
+}
+
+.table th {
+    padding: .5rem;
+    vertical-align: middle;
+    color: #000;
+    font-weight: normal;
+}
+
+.table td {
+    padding: .25rem .625rem;
+    vertical-align: middle;
+    color: #444;
+    line-height: 1.5rem;
+    white-space: nowrap;
+}
+
+.btn .fa, .btn .fas {
+    margin-right: 3px;
+}
+
+.dropdown-menu {
+    min-width: 7.5rem;
+    border-radius: 0;
+}
+
+.modal-header .modal-title {
+    font-size: 1rem !important;
+}
+
+.nav-sidebar > .nav-item .nav-icon.fa, .nav-sidebar > .nav-item .nav-icon.fab, .nav-sidebar > .nav-item .nav-icon.far, .nav-sidebar > .nav-item .nav-icon.fas, .nav-sidebar > .nav-item .nav-icon.glyphicon, .nav-sidebar > .nav-item .nav-icon.ion {
+    font-size: .875rem;
+}
+
+.nav-sidebar .nav-link > .right, .nav-sidebar .nav-link > p > .right {
+    top: .6rem;
+}
+
+.smallPanel {
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+}
+
+
+@media (max-width: 768px) {
+    div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+        justify-content: center !important;
+    }
+}
+
+@media (min-width: 360px) {
+    .smallPanel {
+        width: 90%;
+    }
+
+    .col-form-label.text-right {
+        text-align: left !important;
+    }
+
+}
+
+@media (min-width: 768px) {
+    .smallPanel {
+        width: 70%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .smallPanel {
+        width: 55%;
+    }
 }
 
 button:focus {

@@ -1,9 +1,11 @@
 package com.example.persistence.criteria;
 
+import com.example.persistence.entity.AbstractEntity;
 import com.example.persistence.entity.QAbstractEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.EntityPathBase;
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.PageRequest;
@@ -20,17 +22,20 @@ import static org.springframework.data.domain.Sort.Direction.DESC;
 
 @Data
 @ToString(exclude = {"DEFAULT_MAX_ROWS"})
-public abstract class AbstractCriteria<Q> {
+public abstract class AbstractCriteria<Q extends EntityPathBase<? extends AbstractEntity>> {
 	@Getter(AccessLevel.NONE)
 	@Setter(AccessLevel.NONE)
 	private final int DEFAULT_MAX_ROWS = 100;
-
 	protected String keyword;
 	protected Long id;
 	protected Set<Long> includeIds;
 	protected Set<Long> excludeIds;
 	protected String sortProperty;
 	protected String sortType;
+	@Getter(AccessLevel.NONE)
+	private Integer offset;
+	@Getter(AccessLevel.NONE)
+	private Integer limit;
 	private Long recordRegId;
 	private Long recordUpdId;
 	@JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
@@ -74,6 +79,10 @@ public abstract class AbstractCriteria<Q> {
 		return predicate;
 	}
 
+	public Pageable getPager() {
+		return getPager(offset, limit);
+	}
+
 	public Pageable getPager(Integer offset, Integer limit) {
 		if (offset == null || limit == null) {
 			return null;
@@ -82,15 +91,13 @@ public abstract class AbstractCriteria<Q> {
 		limit = limit > 0 ? limit : DEFAULT_MAX_ROWS;
 
 		if (StringUtils.isBlank(sortProperty)) {
-			return PageRequest.of(page, limit);
+			sortProperty = "id";
 		}
-		else {
-			if (StringUtils.isBlank(sortType)) {
-				sortType = "ASC";
-			}
-			Sort.Direction direction = ASC.toString().equalsIgnoreCase(sortType) ? ASC : DESC;
-			return PageRequest.of(page, limit, Sort.by(Order.by(sortProperty).with(direction)));
+		if (StringUtils.isBlank(sortType)) {
+			sortType = "DESC";
 		}
+		Sort.Direction direction = ASC.toString().equalsIgnoreCase(sortType) ? ASC : DESC;
+		return PageRequest.of(page, limit, Sort.by(Order.by(sortProperty).with(direction)));
 	}
 
 	public Pageable getPager(Integer offset, Integer limit, Sort sort) {
@@ -125,7 +132,7 @@ public abstract class AbstractCriteria<Q> {
 
 	public Sort getSort(String sortProperty, String sortType) {
 		if (StringUtils.isBlank(sortType)) {
-			sortType = "ASC";
+			sortType = "DESC";
 		}
 		Sort.Direction direction = ASC.toString().equalsIgnoreCase(sortType) ? ASC : DESC;
 		return Sort.by(Order.by(sortProperty).with(direction));

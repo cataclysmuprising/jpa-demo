@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/sec/admins")
-public class AdminController extends BaseMVCController {
+public class AdministratorController extends BaseMVCController {
 	@GetMapping
 	public String home() {
 		return "/admin/home";

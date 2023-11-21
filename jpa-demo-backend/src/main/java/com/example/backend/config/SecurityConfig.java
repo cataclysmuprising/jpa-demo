@@ -62,7 +62,8 @@ public class SecurityConfig {
 								,"/accessDenied"
 								,"/error/*"
 								,"/static/**"
-								,"/pub/**").permitAll()
+								,"/pub/**"
+								,"/api/pub/**").permitAll()
 
 								.requestMatchers("/sec/**")
 								.access(new RoleBasedAccessDecisionManager(roleService))

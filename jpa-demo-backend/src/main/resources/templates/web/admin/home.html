@@ -2,12 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <!-- Page Styles -->
 <div th:fragment="styles" th:remove="tag">
+    <link rel="stylesheet" th:href="@{'/static/css/common/datatables.min.css?v='+${buildNumber}}">
     <link rel="stylesheet" th:href="@{'/static/css/app/admin/page'+ ${isProduction == true ? '.min.css' : '.css'}+'?v='+${buildNumber}}">
 </div>
 <!-- /Page Styles -->
 
 <!-- Page Scripts -->
 <div th:fragment="scripts" th:remove="tag">
+    <script th:src="@{'/static/js/common/datatables.min.js?v='+${buildNumber}}"></script>
+    <script th:src="@{'/static/js/common/datatables-util'+ ${isProduction == true ? '.min.js' : '.js'}+'?v='+${buildNumber}}"></script>
     <script th:src="@{'/static/js/app/admin/page'+ ${isProduction == true ? '.min.js' : '.js'}+'?v='+${buildNumber}}"></script>
 </div>
 <!-- /Page Scripts -->
@@ -37,16 +40,47 @@
     <!-- Main content -->
     <section class="content">
         <div class="card">
-            <div class="card-body row">
-                <div class="col-5 text-center d-flex align-items-center justify-content-center">
-                    <div class="">
-                        <h2>Admin<strong>LTE</strong></h2>
-                        <p class="lead mb-5">123 Testing Ave, Testtown, 9876 NA
-                            <br>
-                            Phone: +1 234 56789012
-                        </p>
+            <div class="card-header">
+                <form id="adminForm">
+                    <div class="row">
+                        <div class="col-5">
+                            <input class="form-control form-control-sm" id="keyword" placeholder="keyword ..." type="text">
+                        </div>
+                        <div class="col-7">
+                            <button class="btn btn-flat btn-primary" id="btnSearch" type="button">
+                                <i class="fas fa-search"></i> Search
+                            </button>
+                            <button class="btn btn-flat btn-warning" id="btnReset" type="button">
+                                <i class="fas fa-recycle"></i> Reset
+                            </button>
+                            <!--                      <c:if test="${adminAdd}">
+                                                      <spring:url value="/administrator/add" var="addNewUrl"/>
+                                                      <a class="btn btn-secondary float-right btn-flat" href="${addNewUrl}" role="button">
+                                                          <i class="fas fa-plus"></i> Add New
+                                                      </a>
+                                                  </c:if>-->
+                            <a class="btn btn-secondary float-right btn-flat" href="${addNewUrl}" role="button">
+                                <i class="fas fa-plus"></i> Add New
+                            </a>
+                        </div>
                     </div>
-                </div>
+                </form>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered" id="tblAdministrator">
+                    <thead>
+                    <tr>
+                        <th data-sort-key="name">Name</th>
+                        <th>Status</th>
+                        <!-- <c:if test="${adminDetail or adminEdit or adminRemove}">
+
+                         </c:if>-->
+                        <th class="functionColumn">Function</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>

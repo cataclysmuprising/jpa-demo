@@ -106,7 +106,6 @@ function initJQueryDataTable() {
             aaSorting: [],
             "language": {
                 "zeroRecords": "No matching records found.",
-                "processing": '<div class="spinner"></div>',
                 'loadingRecords': '&nbsp;',
             },
             infoCallback: function (roles, start, end, max, total, pre) {
