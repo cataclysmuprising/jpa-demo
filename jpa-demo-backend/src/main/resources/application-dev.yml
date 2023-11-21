@@ -1,3 +1,6 @@
+### Define Logger config file directory ###
+logging:
+  config: classpath:logger/log4j2-dev.yml
 spring:
   thymeleaf: # Thymeleaf
     cache: false
@@ -20,6 +23,3 @@ server:
     session:
       timeout:
         72000s
-
-os:
-  separator: \

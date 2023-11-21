@@ -46,57 +46,88 @@
 		</dependency>
 	</dependencies>
 
-	<build>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<excludes>
-					<exclude>static/**</exclude>
-				</excludes>
-			</resource>
-		</resources>
-		<plugins>
-			<!-- To create log4j2 config file under resource folder for production war file -->
-			<plugin>
-				<groupId>com.coderplus.maven.plugins</groupId>
-				<artifactId>copy-rename-maven-plugin</artifactId>
-				<version>1.0.1</version>
-				<executions>
-					<execution>
-						<id>copy-log-file</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
+	<profiles>
+		<profile>
+			<id>_production</id>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources</directory>
+						<excludes>
+							<exclude>static/**</exclude>
+							<exclude>logger/**</exclude>
+							<exclude>application-dev.yml</exclude>
+						</excludes>
+					</resource>
+				</resources>
+				<plugins>
+					<!-- To create log4j2 config file under resource folder for production war file -->
+					<plugin>
+						<groupId>com.coderplus.maven.plugins</groupId>
+						<artifactId>copy-rename-maven-plugin</artifactId>
+						<version>1.0.1</version>
+						<executions>
+							<execution>
+								<id>copy-log-file</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>copy</goal>
+								</goals>
+								<configuration>
+									<sourceFile>src/main/resources/logger/log4j2-prd.yml</sourceFile>
+									<destinationFile>${project.build.outputDirectory}/log4j2.yml</destinationFile>
+								</configuration>
+							</execution>
+							<execution>
+								<id>rename-static-rss-files</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>rename</goal>
+								</goals>
+								<configuration>
+									<sourceFile>${war.ouput.dir}/static-resources/${project.artifactId}/static/</sourceFile>
+									<destinationFile>${project.build.outputDirectory}/static/</destinationFile>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<version>3.4.0</version>
 						<configuration>
-							<sourceFile>src/main/resources/logger/log4j2-prd.yml</sourceFile>
-							<destinationFile>${project.build.outputDirectory}/log4j2.yml</destinationFile>
+							<failOnMissingWebXml>false</failOnMissingWebXml>
+							<warName>jpademo-backend</warName>
+							<outputDirectory>${war.ouput.dir}\war</outputDirectory>
 						</configuration>
-					</execution>
-					<execution>
-						<id>rename-static-rss-files</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>rename</goal>
-						</goals>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>_development</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
 						<configuration>
-							<sourceFile>${war.ouput.dir}/static-resources/${project.artifactId}/static/</sourceFile>
-							<destinationFile>${project.build.outputDirectory}/static/</destinationFile>
+							<excludes>
+								<exclude>
+									<groupId>org.projectlombok</groupId>
+									<artifactId>lombok</artifactId>
+								</exclude>
+							</excludes>
 						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>3.4.0</version>
-				<configuration>
-					<failOnMissingWebXml>false</failOnMissingWebXml>
-					<warName>jpademo-backend</warName>
-					<outputDirectory>${war.ouput.dir}\war</outputDirectory>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+	</profiles>
 
 </project>

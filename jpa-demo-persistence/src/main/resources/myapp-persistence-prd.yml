@@ -37,12 +37,3 @@ spring:
           use_jdbc_metadata_defaults: false #Disabling contextual LOB creation error
         bytecode:
           use_reflection_optimizer: false
-  # Flyway Migrate Settings
-  flyway:
-    url: ${datasource.primary.jdbc-url}
-    user: ${datasource.primary.username}
-    password: ${datasource.primary.password}
-    driver-class-name: ${datasource.primary.driver-class-name}
-    encoding: UTF-8
-    enabled: true
-    locations: classpath:/migration

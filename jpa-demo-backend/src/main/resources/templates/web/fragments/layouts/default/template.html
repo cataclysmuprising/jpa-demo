@@ -12,7 +12,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" th:href="@{'/static/css/common/theme.min.css?v='+${buildNumber}}">
     <!-- App style -->
-    <link rel="stylesheet" th:href="@{'/static/css/common/app'+ ${isProduction == true ? '.min.css' : '.css'}+'v=?'+${buildNumber}}">
+    <link rel="stylesheet" th:href="@{'/static/css/common/app'+ ${isProduction == true ? '.min.css' : '.css'}+'?v='+${buildNumber}}">
     <!-- page related styles -->
     <meta th:replace="~{${view} :: styles}"/>
 </head>
@@ -20,10 +20,10 @@
 <body class="sidebar-mini layout-fixed text-sm">
 <!-- Site wrapper -->
 <div class="wrapper">
-    <nav th:replace="/fragments/layouts/default/header">
+    <nav th:replace="~{/fragments/layouts/default/header}">
         HEADER
     </nav>
-    <aside th:replace="/fragments/layouts/default/main-sidebar">
+    <aside th:replace="~{/fragments/layouts/default/main-sidebar}">
         MAIN SIDE-BAR
     </aside>
 
@@ -33,7 +33,7 @@
     </div>
 
     <!-- /.content-wrapper -->
-    <footer th:replace="/fragments/layouts/default/footer">
+    <footer th:replace="~{/fragments/layouts/default/footer}">
         FOOTER
     </footer>
 </div>
@@ -45,7 +45,7 @@
 <!-- Theme JS -->
 <script type="javascript" th:src="@{'/static/js/common/theme.min.js'+${buildNumber}}"></script>
 <!-- App JS -->
-<script type="javascript" th:src="@{'/static/js/common/app'+ ${isProduction == true ? '.min.js' : '.js'}+'v=?'+${buildNumber}}"></script>
+<script th:src="@{'/static/js/common/app'+ ${isProduction == true ? '.min.js' : '.js'}+'?v='+${buildNumber}}" type="javascript"></script>
 <!-- page related scripts -->
 <div th:replace="~{${view} :: scripts}"></div>
 </body>

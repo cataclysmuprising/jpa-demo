@@ -14,11 +14,21 @@ echo ========================================
 echo -- Minifying Finished
 echo ========================================
 
+echo ============================================
+echo -- Start installing jpa-demo-persistence jar
+echo ============================================
+cd /d "D:\projects\jpa-demo\jpa-demo-persistence\"
+call mvn clean install -P_production -Dmaven.test.skip=true
+cd /d %pwd%
+echo ===============================================
+echo -- Finished installing jpa-demo-persistence jar
+echo ===============================================
+
 echo ========================================
 echo -- Start Generating jpa-demo-backend war
 echo ========================================
 cd /d "D:\projects\jpa-demo\jpa-demo-backend\"
-call mvn clean package -Dmaven.test.skip=true -Dmaven.site.skip=true -Dmaven.javadoc.skip=true
+call mvn clean package -P_production -Dmaven.test.skip=true -Dmaven.site.skip=true -Dmaven.javadoc.skip=true
 cd /d %pwd%
 echo =========================================
 echo -- Generating 'jpa-demo-backend' Finished
