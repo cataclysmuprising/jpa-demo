@@ -19,8 +19,7 @@
  * 	  4.1) DataTable
  * 	  4.2) Bootstrap Select
  * 	  4.3) Autocomplete Box
- *    4.4) Pretty CheckBox style
- *    4.5) Bootstrap DateTimePicker
+ *    4.4) Bootstrap DateTimePicker
 
  * 5) Responsive
  **/
@@ -62,4 +61,325 @@ body {
     font-family: 'Roboto Regular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     overflow-x: hidden;
     overflow-y: auto;
+}
+
+/*******************
+ 1.2 Misc
+ *******************/
+
+.bootstrap-select.is-invalid > .btn.dropdown-toggle {
+    border-color: #dc3545;
+}
+
+input {
+    filter: unset !important;
+}
+
+.text-center {
+    text-align: center !important;
+    justify-content: center;
+}
+
+.disabled {
+    cursor: not-allowed;
+}
+
+.lobibox-notify-title {
+    font-size: 1rem !important;
+}
+
+.dataTables_wrapper .col-sm-12 {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+}
+
+/*###################
+ 2. Theme Override
+ ####################*/
+
+/**********************
+ 2.1 Layout Styles
+ **********************/
+
+.text-sm .content-header h1 {
+    font-size: 1.2rem;
+}
+
+button:focus {
+    outline: none;
+}
+
+.text-sm .nav-link {
+    padding: .5rem 1rem;
+}
+
+/**********************
+ 2.2 Misc
+ **********************/
+
+.col-form-label {
+    font-weight: 400 !important;
+}
+
+.table td, .table th {
+    vertical-align: middle;
+}
+
+/*####################
+ 3. Custom Components
+ #####################*/
+
+/*******************************
+ 3.1 Required Field Label Style
+ *******************************/
+
+label.required::before {
+    content: "* ";
+    color: red;
+    font-weight: bold;
+}
+
+/*****************************
+ 3.2 DataTable Loading Icon
+ *****************************/
+#overlay {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 999999;
+    top: 0;
+    left: 0;
+    opacity: .90;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f7f7f7;
+}
+
+.overlay-spinner {
+    height: 36px;
+    width: 36px;
+    animation: rotate 0.8s infinite linear;
+    border: 3px solid #444;
+    border-right-color: transparent;
+    border-radius: 50%;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    animation: spinner .6s linear infinite;
+}
+
+/**********************
+ 3.3 Function Column
+ **********************/
+.functionColumn {
+    width: 100px !important;
+    max-width: 100px !important;
+    min-width: 100px !important;
+    text-align: center;
+    font-weight: 700;
+    cursor: default !important;
+}
+
+/****************************
+3.4 DataTable detail-control
+ ****************************/
+
+.table td.details-control::before {
+    height: 14px;
+    width: 14px;
+    display: block;
+    color: white;
+    border: 2px solid white;
+    border-radius: 14px;
+    box-shadow: 0 0 4px #444;
+    box-sizing: content-box;
+    text-align: center;
+    text-indent: 0 !important;
+    font-family: 'Courier New', Courier, monospace;
+    line-height: 14px;
+    content: '+';
+    background-color: #31b131;
+    margin: 0 auto;
+}
+
+.table tr.shown td.details-control::before {
+    content: '-';
+    background-color: #d33333;
+}
+
+/***************************
+3.5 selectable table styles
+****************************/
+table.dataTable.selectable tbody td:first-child, table.dataTable.selectable thead th:first-child,
+table.dataTable.selectable thead td:first-child {
+    width: 30px;
+    min-width: 30px;
+    max-width: 30px;
+    text-align: center;
+}
+
+table.dataTable.selectable tr {
+    cursor: pointer;
+}
+
+table.dataTable.selectable .pretty {
+    margin-right: 0;
+}
+
+.itemCountWrapper {
+    opacity: 0;
+    position: fixed;
+    top: 10px !important;
+    width: 100%;
+    z-index: 999999999;
+    left: 0;
+}
+
+.itemCountWrapper a {
+    padding: 0.575rem;
+    background-color: #c6c6c6;
+    border: 1px solid #f4f4f4;
+    font-size: 0.875rem;
+}
+
+.itemCountWrapper .count {
+    color: #dd4b39;
+}
+
+
+/*###################
+ 4. Custom Rules
+ ####################*/
+
+/**********************
+ 4.1 DataTable
+ **********************/
+
+div.dataTables_wrapper div.dataTables_processing {
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+    top: 80px !important;
+}
+
+tbody {
+    min-height: 100px;
+}
+
+.table thead th {
+    border-top-width: 0;
+    border-bottom: none;
+    background-color: #f9f9f9;
+}
+
+/**********************
+ 4.2 Bootstrap Select
+ **********************/
+.bootstrap-select .dropdown-toggle:focus, .bootstrap-select > select.mobile-device:focus + .dropdown-toggle {
+    outline: none !important;
+}
+
+.bootstrap-select .dropdown-toggle.btn-light {
+    background-color: #fff;
+    border-color: #ced4da;
+    border-radius: 0;
+}
+
+.selectpicker:disabled + .dropdown-toggle.btn-light {
+    background-color: #e9e6e6 !important;
+}
+
+.bootstrap-select .dropdown-menu.show {
+    min-width: 100% !important;
+}
+
+/**********************
+ 4.3 Autocomplete Box
+ **********************/
+
+.autocomplete-suggestions {
+    position: absolute;
+    z-index: 10000;
+    background-color: #F5F5F5;
+    box-shadow: 0px 1px 3px 1px #d2d6de;
+    display: none;
+    max-height: 150px;
+    overflow: auto;
+}
+
+.autocomplete-suggestion {
+    padding: 2px 6px;
+    margin: 3px 0px;
+    cursor: pointer;
+    font-size: 11px;
+    color: #555;
+}
+
+.autocomplete-suggestion b {
+    text-shadow: 0px -1px #C0C0C0;
+    padding: 0px 1px;
+}
+
+.radio-inline, .checkbox-inline {
+    padding-left: 0px !important;
+}
+
+.radio-inline label, .checkbox-inline label {
+    position: relative;
+    top: 1px;
+    cursor: pointer;
+}
+
+/*****************************
+ 4.4 Bootstrap DateTimePicker
+ *****************************/
+
+.bootstrap-datetimepicker-widget table td.day {
+    height: 30px !important;
+    line-height: 30px !important;
+    width: 30px !important;
+}
+
+.bootstrap-datetimepicker-widget table th {
+    height: 30px !important;
+    line-height: 30px !important;
+}
+
+.bootstrap-datetimepicker-widget table td.active, .bootstrap-datetimepicker-widget table td.active:hover {
+    background-color: #009c95 !important;
+}
+
+.bootstrap-datetimepicker-widget table td.today::before {
+    border-bottom-color: #009c95 !important;
+}
+
+.input-group-addon {
+    border-left: none !important;
 }

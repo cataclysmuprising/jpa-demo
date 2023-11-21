@@ -1,27 +1,20 @@
 package com.example.backend.controller.mvc;
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/")
-public class HomeController extends BaseMVCController {
+@RequestMapping("/sec/admins")
+public class AdminController extends BaseMVCController {
 	@GetMapping
 	public String home() {
-		return "redirect:/sec/dashboard";
-	}
-
-	@GetMapping("/sec/dashboard")
-	public String dashboardPage(Model model, HttpServletRequest request) {
-		setAuthorities(model, "Dashboard");
-		return "dashboard";
+		return "/admin/home";
 	}
 
 	@Override
 	public void subInit(Model model) {
-
+		setAuthorities(model, "Administrator");
 	}
 }

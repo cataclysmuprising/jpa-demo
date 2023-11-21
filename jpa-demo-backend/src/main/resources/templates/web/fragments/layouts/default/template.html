@@ -13,6 +13,7 @@
     <link rel="stylesheet" th:href="@{'/static/css/common/theme.min.css?v='+${buildNumber}}">
     <!-- App style -->
     <link rel="stylesheet" th:href="@{'/static/css/common/app'+ ${isProduction == true ? '.min.css' : '.css'}+'?v='+${buildNumber}}">
+    <link rel="stylesheet" th:href="@{'/static/css/common/skin'+ ${isProduction == true ? '.min.css' : '.css'}+'?v='+${buildNumber}}">
     <!-- page related styles -->
     <meta th:replace="~{${view} :: styles}"/>
 </head>
