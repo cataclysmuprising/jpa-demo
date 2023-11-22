@@ -74,8 +74,10 @@ function baseBind() {
     $('form').on('reset', function (e) {
         setTimeout(function () {
             let selectpicker = $(".selectpicker");
-            selectpicker.selectpicker('refresh');
-            selectpicker.trigger('refreshed.bs.select');
+            if (selectpicker.length > 0) {
+                selectpicker.selectpicker('refresh');
+                selectpicker.trigger('refreshed.bs.select');
+            }
         });
     });
 

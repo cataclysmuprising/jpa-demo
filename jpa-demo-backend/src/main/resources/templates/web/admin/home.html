@@ -53,13 +53,7 @@
                             <button class="btn btn-flat btn-warning" id="btnReset" type="button">
                                 <i class="fas fa-recycle"></i> Reset
                             </button>
-                            <!--                      <c:if test="${adminAdd}">
-                                                      <spring:url value="/administrator/add" var="addNewUrl"/>
-                                                      <a class="btn btn-secondary float-right btn-flat" href="${addNewUrl}" role="button">
-                                                          <i class="fas fa-plus"></i> Add New
-                                                      </a>
-                                                  </c:if>-->
-                            <a class="btn btn-secondary float-right btn-flat" href="${addNewUrl}" role="button">
+                            <a class="btn btn-secondary float-right btn-flat" role="button" th:href="@{/admins/add}" th:if="${adminAdd == true}">
                                 <i class="fas fa-plus"></i> Add New
                             </a>
                         </div>

@@ -1,9 +1,13 @@
 package com.example.backend.controller.mvc;
 
+import com.example.backend.utils.thymeleaf.Layout;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -18,6 +22,28 @@ public class HomeController extends BaseMVCController {
 	public String dashboardPage(Model model, HttpServletRequest request) {
 		setAuthorities(model, "Dashboard");
 		return "dashboard";
+	}
+
+	@Layout("error")
+	@GetMapping("/error/{code}")
+	public String errorPage(Model model, @RequestHeader(value = HttpHeaders.REFERER, required = false) String referer, @PathVariable String code) {
+		model.addAttribute("pageName", "Error !");
+		model.addAttribute("referer", referer);
+		return "error/" + code;
+	}
+
+	@Layout("error")
+	@GetMapping("/404.html")
+	public String pageNotFound(Model model) {
+		model.addAttribute("pageName", "Error !");
+		return "error/404";
+	}
+
+	@Layout("error")
+	@GetMapping("/accessDenied")
+	public String accessDenied(Model model) {
+		model.addAttribute("pageName", "Error !");
+		return "error/403";
 	}
 
 	@Override

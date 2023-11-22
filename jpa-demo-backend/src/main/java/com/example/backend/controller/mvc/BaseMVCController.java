@@ -23,26 +23,38 @@ import java.util.List;
 
 public abstract class BaseMVCController {
 
+	private static String projectVersion;
+	private static String buildNumber;
 	@Autowired
 	protected Environment environment;
-
 	@Autowired
 	protected MessageSource messageSource;
-
 	@Autowired
 	protected ObjectMapper mapper;
-
 	@Autowired
 	private ActionService actionService;
-
-	private final String projectVersion;
-	private final String buildNumber;
 	@Autowired
 	private ServletContext servletContext;
 
 	public BaseMVCController() {
 		projectVersion = "1.0";
 		buildNumber = DateTimeFormatter.ofPattern("ddMMyyyy-HHmm").format(LocalDateTime.now());
+	}
+
+	public static String getProjectVersion() {
+		return projectVersion;
+	}
+
+	public static String getBuildNumber() {
+		return buildNumber;
+	}
+
+	public static String getAppShortName() {
+		return "My Website";
+	}
+
+	public static String getAppFullName() {
+		return "My Website Backend";
 	}
 
 	@ModelAttribute
@@ -104,10 +116,10 @@ public abstract class BaseMVCController {
 
 	private void setMetaData(Model model) {
 		model.addAttribute("contextPath", servletContext.getContextPath());
-		model.addAttribute("projectVersion", projectVersion);
-		model.addAttribute("buildNumber", buildNumber);
-		model.addAttribute("appShortName", "My Website");
-		model.addAttribute("appFullName", "My Website Backend");
+		model.addAttribute("projectVersion", getProjectVersion());
+		model.addAttribute("buildNumber", getBuildNumber());
+		model.addAttribute("appShortName", getAppShortName());
+		model.addAttribute("appFullName", getAppFullName());
 		model.addAttribute("isProduction", !"dev".equals(environment.getActiveProfiles()[0]));
 	}
 

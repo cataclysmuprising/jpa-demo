@@ -12,7 +12,7 @@ import java.util.Locale;
 public class AuthenticationController extends BaseMVCController {
 
 	@GetMapping("/login")
-	@Layout("plain/template")
+	@Layout("plain")
 	public String login(Model model, @RequestParam(required = false, name = "error") String error) {
 		Locale locale = Locale.ENGLISH;
 		if (error != null) {

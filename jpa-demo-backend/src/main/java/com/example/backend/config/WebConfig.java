@@ -23,6 +23,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+import org.zalando.problem.jackson.ProblemModule;
+import org.zalando.problem.violations.ConstraintViolationProblemModule;
 
 import java.time.Duration;
 import java.util.List;
@@ -97,8 +99,13 @@ public class WebConfig implements WebMvcConfigurer {
 	public ObjectMapper objectMapper() {
 		ObjectMapper objectMapper = new ObjectMapper();
 
-		objectMapper.registerModule(new JavaTimeModule());
-		objectMapper.registerModule(new JsonOrgModule());
+		//@formatter:off
+		objectMapper.registerModules(
+				new JavaTimeModule(),
+				new JsonOrgModule(),
+				new ProblemModule(),
+				new ConstraintViolationProblemModule());
+		//@formatter:on
 
 		objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 		objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);

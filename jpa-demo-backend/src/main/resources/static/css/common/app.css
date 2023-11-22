@@ -146,11 +146,11 @@ input {
 }
 
 .text-sm .btn:not(.btn-tool,.dropdown-toggle) {
-    padding: .375rem 1rem;
+    padding: .43rem 1rem;
 }
 
 td .btn-group .btn:first-child {
-    padding: .4rem .75rem;
+    padding: .43rem .75rem;
 }
 
 .text-sm .input-group-text {
@@ -480,7 +480,7 @@ tbody {
     position: absolute;
     z-index: 10000;
     background-color: #F5F5F5;
-    box-shadow: 0px 1px 3px 1px #d2d6de;
+    box-shadow: 0 1px 3px 1px #d2d6de;
     display: none;
     max-height: 150px;
     overflow: auto;
@@ -488,19 +488,19 @@ tbody {
 
 .autocomplete-suggestion {
     padding: 2px 6px;
-    margin: 3px 0px;
+    margin: 3px 0;
     cursor: pointer;
     font-size: 11px;
     color: #555;
 }
 
 .autocomplete-suggestion b {
-    text-shadow: 0px -1px #C0C0C0;
-    padding: 0px 1px;
+    text-shadow: 0 -1px #C0C0C0;
+    padding: 0 1px;
 }
 
 .radio-inline, .checkbox-inline {
-    padding-left: 0px !important;
+    padding-left: 0 !important;
 }
 
 .radio-inline label, .checkbox-inline label {

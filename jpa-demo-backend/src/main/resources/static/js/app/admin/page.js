@@ -52,21 +52,21 @@ function initDataTable() {
                 let detailButton = {
                     label: "View",
                     authorityName: "adminDetail",
-                    url: getContextPath() + "/administrator/" + full.id,
+                    url: getContextPath() + "/admins/" + full.id,
                     styleClass: "",
                     data_id: full.id
                 };
                 let editButton = {
                     label: "Edit",
                     authorityName: "adminEdit",
-                    url: getContextPath() + "/administrator/" + full.id + '/edit',
+                    url: getContextPath() + "/admins/" + full.id + '/edit',
                     styleClass: "",
                     data_id: full.id
                 };
                 let removeButton = {
                     label: "Remove",
                     authorityName: "adminRemove",
-                    url: getContextPath() + "/administrator/" + full.id + '/delete',
+                    url: getContextPath() + "/admins/" + full.id + '/delete',
                     styleClass: "remove",
                     data_id: full.id
                 };
@@ -85,7 +85,7 @@ function initDataTable() {
         }],
         ajax: {
             type: "POST",
-            url: getApiResourcePath() + 'sec/administrator/search/paging',
+            url: getApiResourcePath() + 'sec/admins/search/paging',
             data: function (d) {
                 let criteria = {};
                 if (d.order.length > 0) {
@@ -93,14 +93,14 @@ function initDataTable() {
                     let dir = $(d.order[0])[0].dir;
                     let head = $("#tblAdministrator").find("thead");
                     let sortColumn = head.find("th:eq(" + index + ")");
-                    criteria.order = dir.toUpperCase();
-                    criteria.orderBy = $(sortColumn).attr("data-sort-key");
+                    criteria.sortType = dir.toUpperCase();
+                    criteria.sortProperty = $(sortColumn).attr("data-sort-key");
                 }
                 criteria.offset = d.start;
                 criteria.limit = d.length;
                 let word = $("#keyword").val();
                 if (isNotEmpty(word)) {
-                    criteria.word = word.trim();
+                    criteria.keyword = word.trim();
                 }
                 return JSON.stringify(criteria);
             }

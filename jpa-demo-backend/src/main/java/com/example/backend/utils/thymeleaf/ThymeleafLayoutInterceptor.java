@@ -10,14 +10,16 @@ import org.springframework.web.servlet.ModelAndView;
 public class ThymeleafLayoutInterceptor implements HandlerInterceptor {
 
 	private static final String DEFAULT_PREFIX = "fragments/layouts/";
-	private static final String DEFAULT_LAYOUT = DEFAULT_PREFIX + "default/template";
+
+	private static final String DEFAULT_SUFFIX = "/template";
+	private static final String DEFAULT_LAYOUT = DEFAULT_PREFIX + "default" + DEFAULT_SUFFIX;
 	private static final String DEFAULT_VIEW_ATTRIBUTE_NAME = "view";
 
 	private String defaultLayout = DEFAULT_LAYOUT;
 	private String viewAttributeName = DEFAULT_VIEW_ATTRIBUTE_NAME;
 
 	public void setDefaultLayout(String defaultLayout) {
-		this.defaultLayout = DEFAULT_PREFIX + defaultLayout;
+		this.defaultLayout = DEFAULT_PREFIX + defaultLayout + DEFAULT_SUFFIX;
 	}
 
 	public void setViewAttributeName(String viewAttributeName) {
@@ -47,7 +49,7 @@ public class ThymeleafLayoutInterceptor implements HandlerInterceptor {
 		if (handler instanceof HandlerMethod handlerMethod) {
 			Layout layout = getMethodOrTypeAnnotation(handlerMethod);
 			if (layout != null) {
-				return DEFAULT_PREFIX + layout.value();
+				return DEFAULT_PREFIX + layout.value() + DEFAULT_SUFFIX;
 			}
 		}
 		return defaultLayout;
