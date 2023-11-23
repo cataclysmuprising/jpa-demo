@@ -28,4 +28,9 @@ public class AdministratorRole extends AbstractEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "role_id", insertable = false, updatable = false)
 	private Role role;
+
+	public AdministratorRole(Long administratorId, Long roleId) {
+		this.administratorId = administratorId;
+		this.roleId = roleId;
+	}
 }

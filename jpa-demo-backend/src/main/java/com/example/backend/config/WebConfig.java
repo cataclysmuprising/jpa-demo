@@ -1,8 +1,8 @@
 package com.example.backend.config;
 
-import com.example.backend.utils.converters.DateTimeConverter;
-import com.example.backend.utils.converters.LocalDateConverter;
-import com.example.backend.utils.thymeleaf.ThymeleafLayoutInterceptor;
+import com.example.backend.common.converters.DateTimeConverter;
+import com.example.backend.common.converters.LocalDateConverter;
+import com.example.backend.common.thymeleaf.ThymeleafLayoutInterceptor;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

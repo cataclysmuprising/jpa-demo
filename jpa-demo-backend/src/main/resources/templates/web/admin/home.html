@@ -3,7 +3,7 @@
 <!-- Page Styles -->
 <div th:fragment="styles" th:remove="tag">
     <link rel="stylesheet" th:href="@{'/static/css/common/datatables.min.css?v='+${buildNumber}}">
-    <link rel="stylesheet" th:href="@{'/static/css/app/admin/page'+ ${isProduction == true ? '.min.css' : '.css'}+'?v='+${buildNumber}}">
+    <link rel="stylesheet" th:href="@{'/static/css/app/admin/home'+ ${isProduction == true ? '.min.css' : '.css'}+'?v='+${buildNumber}}">
 </div>
 <!-- /Page Styles -->
 
@@ -11,7 +11,7 @@
 <div th:fragment="scripts" th:remove="tag">
     <script th:src="@{'/static/js/common/datatables.min.js?v='+${buildNumber}}"></script>
     <script th:src="@{'/static/js/common/datatables-util'+ ${isProduction == true ? '.min.js' : '.js'}+'?v='+${buildNumber}}"></script>
-    <script th:src="@{'/static/js/app/admin/page'+ ${isProduction == true ? '.min.js' : '.js'}+'?v='+${buildNumber}}"></script>
+    <script th:src="@{'/static/js/app/admin/home'+ ${isProduction == true ? '.min.js' : '.js'}+'?v='+${buildNumber}}"></script>
 </div>
 <!-- /Page Scripts -->
 
@@ -27,9 +27,13 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">
+                            <i class="fa fa-home"></i>
                             <a th:href="@{/}">Home</a>
                         </li>
-                        <li class="breadcrumb-item active">Administrators</li>
+                        <li class="breadcrumb-item active">
+                            <i class="fa fa-street-view"></i>
+                            Administrators
+                        </li>
                     </ol>
                 </div>
             </div>
@@ -53,7 +57,7 @@
                             <button class="btn btn-flat btn-warning" id="btnReset" type="button">
                                 <i class="fas fa-recycle"></i> Reset
                             </button>
-                            <a class="btn btn-secondary float-right btn-flat" role="button" th:href="@{/admins/add}" th:if="${adminAdd == true}">
+                            <a class="btn btn-secondary float-right btn-flat" role="button" th:href="@{/sec/admins/add}" th:if="${adminAdd == true}">
                                 <i class="fas fa-plus"></i> Add New
                             </a>
                         </div>

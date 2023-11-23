@@ -1,6 +1,8 @@
 package com.example.backend.controller.mvc;
 
 import com.example.backend.BackendApplication;
+import com.example.backend.common.response.PageMessage;
+import com.example.backend.common.response.PageMessageStyle;
 import com.example.backend.config.security.AuthenticatedClient;
 import com.example.persistence.dto.AuthenticatedClientDTO;
 import com.example.persistence.exception.BusinessException;
@@ -11,15 +13,21 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public abstract class BaseMVCController {
 
@@ -121,6 +129,50 @@ public abstract class BaseMVCController {
 		model.addAttribute("appShortName", getAppShortName());
 		model.addAttribute("appFullName", getAppFullName());
 		model.addAttribute("isProduction", !"dev".equals(environment.getActiveProfiles()[0]));
+	}
+
+	Map<String, Object> setAjaxFormFieldErrors(Errors errors, String errorKeyPrefix) {
+		Map<String, Object> response = new HashMap<>();
+		Map<String, String> fieldErrors = new HashMap<>();
+		response.put("status", HttpStatus.METHOD_NOT_ALLOWED);
+
+		List<FieldError> errorFields = errors.getFieldErrors();
+		errorFields.forEach(item -> {
+			if (errorKeyPrefix != null) {
+				if (!fieldErrors.containsKey(errorKeyPrefix + item.getField())) {
+					fieldErrors.put(errorKeyPrefix + item.getField(), item.getDefaultMessage());
+				}
+			}
+			else {
+				if (!fieldErrors.containsKey(item.getField())) {
+					fieldErrors.put(item.getField(), item.getDefaultMessage());
+				}
+			}
+		});
+		response.put("fieldErrors", fieldErrors);
+		response.put("type", "validationError");
+		setAjaxPageMessage(response, "Validation Error", "Validation.common.Page.ValidationErrorMessage", PageMessageStyle.ERROR);
+		return response;
+	}
+
+	protected void setPageMessage(Model model, String messageTitle, String messageCode, PageMessageStyle style, Object... messageParams) {
+		model.addAttribute("pageMessage", new PageMessage(messageTitle, messageSource.getMessage(messageCode, messageParams, Locale.ENGLISH), style.getValue()));
+	}
+
+	protected void setPageMessage(RedirectAttributes redirectAttributes, String messageTitle, String messageCode, PageMessageStyle style, Object... messageParams) {
+		redirectAttributes.addFlashAttribute("pageMessage", new PageMessage(messageTitle, messageSource.getMessage(messageCode, messageParams, Locale.ENGLISH), style.getValue()));
+	}
+
+	protected void setPageMessage(boolean raw, RedirectAttributes redirectAttributes, String messageTitle, String message, PageMessageStyle style, Object... messageParams) {
+		redirectAttributes.addFlashAttribute("pageMessage", new PageMessage(messageTitle, message, style.getValue()));
+	}
+
+	protected Map<String, Object> setAjaxPageMessage(Map<String, Object> response, String messageTitle, String messageCode, PageMessageStyle style, Object... messageParams) {
+		if (response == null) {
+			response = new HashMap<>();
+		}
+		response.put("pageMessage", new PageMessage(messageTitle, messageSource.getMessage(messageCode, messageParams, Locale.ENGLISH), style.getValue()));
+		return response;
 	}
 
 	public abstract void subInit(Model model);

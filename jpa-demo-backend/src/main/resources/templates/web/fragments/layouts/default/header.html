@@ -3,6 +3,11 @@
     <div th:each="access : ${accessments}" th:remove="tag">
         <input th:id="${access.key}" th:value="${access.value}" type="hidden">
     </div>
+    <div id="validationErrors" style="display: none;" th:each="item : ${validationErrors}">
+        <span class="error-item" th:attr="data-id=${item.key},data-error-message=${item.value}"></span>
+    </div>
+    <input id="pageMode" th:value="${pageMode}" type="hidden">
+    <span id="pageMessage" style="display: none;" th:attr="data-info=${pageMessage.message},data-style=${pageMessage.style},data-title=${pageMessage.title}" th:if="${pageMessage}"></span>
     <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">

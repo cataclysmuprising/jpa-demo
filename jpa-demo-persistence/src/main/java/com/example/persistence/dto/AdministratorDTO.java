@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -20,9 +21,13 @@ public class AdministratorDTO extends AbstractDTO {
 	@JsonIgnore
 	private String password;
 
+	private String confirmPassword;
+
 	private AuthenticatedClientDTO.Status status;
 
 	private List<RoleDTO> roles;
+
+	private Set<Long> roleIds;
 
 	private StaticContentDTO staticContent;
 }

@@ -1,4 +1,4 @@
-package com.example.persistence.exception;
+package com.example.backend.common.exception;
 
 import java.io.Serial;
 

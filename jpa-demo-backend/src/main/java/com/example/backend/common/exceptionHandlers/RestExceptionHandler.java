@@ -1,4 +1,4 @@
-package com.example.backend.utils.exceptionHandlers;
+package com.example.backend.common.exceptionHandlers;
 
 import com.example.persistence.exception.BusinessException;
 import com.example.persistence.exception.ConsistencyViolationException;

@@ -5,17 +5,22 @@ import com.example.persistence.criteria.AdministratorCriteria;
 import com.example.persistence.dto.AdministratorDTO;
 import com.example.persistence.dto.AuthenticatedClientDTO;
 import com.example.persistence.entity.Administrator;
+import com.example.persistence.entity.AdministratorRole;
 import com.example.persistence.entity.Role;
 import com.example.persistence.mapper.AdministratorMapper;
 import com.example.persistence.repository.AdministratorRepository;
+import com.example.persistence.repository.AdministratorRoleRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Transactional(transactionManager = PrimaryPersistenceContext.TX_MANAGER, rollbackFor = Exception.class)
@@ -24,6 +29,9 @@ public class AdministratorService extends BaseService<Administrator, Administrat
 	private static final Logger serviceLogger = LogManager.getLogger("serviceLogs." + AdministratorService.class);
 	private final AdministratorRepository repository;
 	private final AdministratorMapper mapper;
+
+	@Autowired
+	private AdministratorRoleRepository administratorRoleRepository;
 
 	@Autowired
 	AdministratorService(AdministratorRepository repository, AdministratorMapper mapper) {
@@ -61,5 +69,32 @@ public class AdministratorService extends BaseService<Administrator, Administrat
 		}
 
 		return authClient;
+	}
+
+	public long createNewAdminWithRoles(AdministratorDTO adminDTO, Set<Long> roleIds, long recordRegId) {
+		long lastInsertedId;
+		Administrator newAdministrator = mapper.toEntity(adminDTO);
+		newAdministrator.setRecordRegId(recordRegId);
+		newAdministrator.setRecordUpdId(recordRegId);
+		newAdministrator = repository.save(newAdministrator);
+
+		if (!CollectionUtils.isEmpty(roleIds)) {
+			List<AdministratorRole> adminRoles = new ArrayList<>();
+			for (long roleId : roleIds) {
+				AdministratorRole adminRole = new AdministratorRole(newAdministrator.getId(), roleId);
+				adminRole.setRecordRegId(recordRegId);
+				adminRole.setRecordUpdId(recordRegId);
+				adminRoles.add(adminRole);
+			}
+			administratorRoleRepository.saveAll(adminRoles);
+		}
+		else {
+			// register with 'Administrator' Role
+			AdministratorRole adminRole = new AdministratorRole(newAdministrator.getId(), 2L);
+			adminRole.setRecordRegId(recordRegId);
+			adminRole.setRecordUpdId(recordRegId);
+			administratorRoleRepository.save(adminRole);
+		}
+		return newAdministrator.getId();
 	}
 }

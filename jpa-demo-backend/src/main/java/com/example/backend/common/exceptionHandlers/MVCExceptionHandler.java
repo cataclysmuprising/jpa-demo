@@ -1,7 +1,12 @@
-package com.example.backend.utils.exceptionHandlers;
+package com.example.backend.common.exceptionHandlers;
 
+import com.example.backend.common.exception.DocumentExpiredException;
+import com.example.backend.common.exception.ValidationFailedException;
 import com.example.backend.controller.mvc.BaseMVCController;
-import com.example.persistence.exception.*;
+import com.example.persistence.exception.BusinessException;
+import com.example.persistence.exception.ConsistencyViolationException;
+import com.example.persistence.exception.ContentNotFoundException;
+import com.example.persistence.exception.DuplicatedEntryException;
 import com.example.persistence.utils.LoggerConstants;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
@@ -132,6 +137,20 @@ public class MVCExceptionHandler {
 		}
 		else {
 			return getErrorView("error/405", auth, null);
+		}
+	}
+
+	@ExceptionHandler(ValidationFailedException.class)
+	@ResponseStatus(HttpStatus.EXPECTATION_FAILED)
+	public ModelAndView handleValidationFailedException(ValidationFailedException e, Authentication auth) {
+		if (e.getModel() != null && e.getErrorView() != null) {
+			ModelAndView modelAndView = new ModelAndView(e.getErrorView(), e.getModel().asMap());
+			modelAndView.setViewName("fragments/layouts/default/template");
+			modelAndView.addObject("view", e.getErrorView());
+			return modelAndView;
+		}
+		else {
+			return getErrorView("error/500", auth, null);
 		}
 	}
 

@@ -1,4 +1,4 @@
-package com.example.backend.utils;
+package com.example.backend.common.converters;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;

@@ -1,4 +1,4 @@
-package com.example.backend.utils.converters;
+package com.example.backend.common.converters;
 
 import org.springframework.core.convert.converter.Converter;
 

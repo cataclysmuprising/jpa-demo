@@ -1,6 +1,6 @@
 package com.example.backend.controller.mvc;
 
-import com.example.backend.utils.thymeleaf.Layout;
+import com.example.backend.common.thymeleaf.Layout;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;

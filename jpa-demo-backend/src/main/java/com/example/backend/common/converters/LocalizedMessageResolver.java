@@ -1,4 +1,4 @@
-package com.example.backend.utils;
+package com.example.backend.common.converters;
 
 import jakarta.annotation.Nonnull;
 import org.springframework.context.MessageSource;

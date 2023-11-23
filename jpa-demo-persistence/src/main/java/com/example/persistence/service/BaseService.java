@@ -35,6 +35,18 @@ public class BaseService<T extends AbstractEntity, C extends AbstractCriteria<?>
 	}
 
 	@Transactional(readOnly = true)
+	public boolean exists(C criteria) {
+		serviceLogger.info("Checking if exists entry information by using criteria : <{}>", criteria);
+		return repository.exists(criteria.getFilter());
+	}
+
+	@Transactional(readOnly = true)
+	public long count(C criteria) {
+		serviceLogger.info("Fetching total entity counts by using criteria : <{}>", criteria);
+		return repository.count(criteria.getFilter());
+	}
+
+	@Transactional(readOnly = true)
 	public DTO findOne(C criteria, String... hints) {
 		serviceLogger.info("Finding single entry information by using criteria : <{}>", criteria);
 		return mapper.toDTO(repository.findOne(criteria.getFilter(), hints).orElse(null), criteria);

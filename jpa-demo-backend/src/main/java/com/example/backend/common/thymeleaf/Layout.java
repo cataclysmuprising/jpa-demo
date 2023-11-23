@@ -1,4 +1,4 @@
-package com.example.backend.utils.thymeleaf;
+package com.example.backend.common.thymeleaf;
 
 import java.lang.annotation.*;
 

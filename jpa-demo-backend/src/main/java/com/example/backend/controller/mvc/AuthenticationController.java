@@ -1,6 +1,6 @@
 package com.example.backend.controller.mvc;
 
-import com.example.backend.utils.thymeleaf.Layout;
+import com.example.backend.common.thymeleaf.Layout;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
