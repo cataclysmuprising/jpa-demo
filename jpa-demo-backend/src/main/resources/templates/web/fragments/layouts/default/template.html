@@ -11,6 +11,8 @@
     <title th:text="(${#strings.isEmpty(appShortName)}  ? 'APP' : ${appShortName}) + (${#strings.isEmpty(pageName)} ?  '' : ' | ' +${pageName})"></title>
     <!-- Font Awesome -->
     <link rel="stylesheet" th:href="@{'/static/css/common/fontawesome.min.css?v='+${buildNumber}}">
+    <!-- Toastr Alert -->
+    <link rel="stylesheet" th:href="@{'/static/css/common/toastr.min.css?v='+${buildNumber}}">
     <!-- Theme style -->
     <link rel="stylesheet" th:href="@{'/static/css/common/theme.min.css?v='+${buildNumber}}">
     <!-- App style -->
@@ -45,6 +47,8 @@
 <script th:src="@{'/static/js/common/jquery.min.js?v='+${buildNumber}}"></script>
 <!-- Bootstrap 4 -->
 <script th:src="@{'/static/js/common/bootstrap.bundle.min.js?v='+${buildNumber}}"></script>
+<!-- Toastr Alert -->
+<script th:src="@{'/static/js/common/toastr.min.js?v='+${buildNumber}}"></script>
 <!-- Theme JS -->
 <script th:src="@{'/static/js/common/theme.min.js?v='+${buildNumber}}"></script>
 <!-- App JS -->

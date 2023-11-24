@@ -64,7 +64,7 @@ function baseInit() {
     $('form').trigger("reset");
     initJQueryDataTable();
     initSelectPickers();
-    initLobiboxSettings();
+    initToastrAlertOptions();
     initJQueryValidator();
     loadValidationErrors();
     initPageMessage();
@@ -154,35 +154,25 @@ function initSelectPickers() {
     });
 }
 
-function initLobiboxSettings() {
-    if (typeof Lobibox !== 'undefined' && typeof Lobibox.notify === "function") {
-        Lobibox.notify.DEFAULTS = $.extend({}, Lobibox.notify.DEFAULTS, {
-            size: 'mini',
-            iconSource: "fontAwesome",
-            showClass: 'zoomIn',
-            hideClass: 'lightSpeedOut',
-            continueDelayOnInactiveTab: true,
-            pauseDelayOnHover: true,
-            sound: false,
-            delay: 10000,
-            img: getStaticResourcePath() + "/images/logo.png",
-            warning: {
-                title: 'Warning',
-                iconClass: 'fa fa-exclamation-circle'
-            },
-            info: {
-                title: 'Information',
-                iconClass: 'fa fa-info-circle'
-            },
-            success: {
-                title: 'Success',
-                iconClass: 'fa fa-check-circle'
-            },
-            error: {
-                title: 'Error',
-                iconClass: 'fa fa-times-circle'
-            }
-        });
+function initToastrAlertOptions() {
+    if (typeof toastr !== 'undefined') {
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": true,
+            "progressBar": true,
+            "positionClass": "toast-bottom-right",
+            "preventDuplicates": true,
+            "onclick": null,
+            "showDuration": "3000",
+            "hideDuration": "1000",
+            "timeOut": "8000",
+            "extendedTimeOut": "3000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
     }
 }
 
@@ -258,12 +248,12 @@ function bindRemoveButtonEvent(selector) {
     $(selector).on("click", function (e) {
         e.preventDefault();
         let url = $(this).attr("href");
-        $("#deleteConfirmModal").modal({
+        $("#modal-confirm-delete").modal({
             backdrop: 'static',
             keyboard: false
         });
-        $("#confirmDelete").off('click').on('click', function (e) {
-            $("#deleteConfirmModal").modal("hide");
+        $("#btn-confirm-delete").off('click').on('click', function (e) {
+            $("#modal-confirm-delete").modal("hide");
             window.location.href = url;
         });
     });
@@ -298,14 +288,25 @@ function loadValidationErrors() {
 }
 
 function notify(title, message, style) {
-    if (typeof Lobibox !== 'undefined' && typeof Lobibox.notify === "function") {
-        if ($(".lobibox-notify-wrapper").length > 0) {
-            $(".lobibox-notify-wrapper").remove();
+    if (typeof toastr !== 'undefined') {
+        switch (style) {
+            case 'warning' :
+                toastr.warning(message, title);
+                break;
+            case 'info' :
+                toastr.info(message, title);
+                break;
+            case 'error' :
+                toastr.error(message, title);
+                break;
+            case  'success' :
+                toastr.success(message, title);
+                break;
+            default :
+                toastr.error(message, title);
+                break;
+
         }
-        Lobibox.notify(style, {
-            msg: message,
-            title: title
-        });
     }
 }
 
@@ -494,7 +495,7 @@ function findWithAttr(array, attr, value) {
 }
 
 String.prototype.replaceSome = function () {
-    var replaceWith = Array.prototype.pop.apply(arguments), i = 0, r = this, l = arguments.length;
+    let replaceWith = Array.prototype.pop.apply(arguments), i = 0, r = this, l = arguments.length;
     for (; i < l; i++) {
         r = r.replace(arguments[i], replaceWith);
     }

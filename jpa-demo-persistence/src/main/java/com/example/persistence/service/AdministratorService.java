@@ -2,6 +2,7 @@ package com.example.persistence.service;
 
 import com.example.persistence.config.PrimaryPersistenceContext;
 import com.example.persistence.criteria.AdministratorCriteria;
+import com.example.persistence.criteria.AdministratorRoleCriteria;
 import com.example.persistence.dto.AdministratorDTO;
 import com.example.persistence.dto.AuthenticatedClientDTO;
 import com.example.persistence.entity.Administrator;
@@ -96,5 +97,34 @@ public class AdministratorService extends BaseService<Administrator, Administrat
 			administratorRoleRepository.save(adminRole);
 		}
 		return newAdministrator.getId();
+	}
+
+	public void updateAdminWithRoles(AdministratorDTO adminDTO, Set<Long> roleIds, long recordUpdId) {
+		Administrator updateAdministartor = new Administrator();
+		updateAdministartor.setName(adminDTO.getName());
+		updateAdministartor.setStatus(adminDTO.getStatus());
+		updateAdministartor.setRecordUpdId(recordUpdId);
+
+		// update administrator
+		AdministratorCriteria criteria = new AdministratorCriteria();
+		criteria.setId(adminDTO.getId());
+		repository.update(updateAdministartor, criteria);
+
+		if (!CollectionUtils.isEmpty(roleIds)) {
+			// remove existing roles
+			AdministratorRoleCriteria administratorRoleCriteria = new AdministratorRoleCriteria();
+			administratorRoleCriteria.setAdministratorId(adminDTO.getId());
+			administratorRoleRepository.deleteByCriteria(administratorRoleCriteria);
+
+			// add new roles
+			List<AdministratorRole> adminRoles = new ArrayList<>();
+			for (long roleId : roleIds) {
+				AdministratorRole adminRole = new AdministratorRole(adminDTO.getId(), roleId);
+				adminRole.setRecordRegId(recordUpdId);
+				adminRole.setRecordUpdId(recordUpdId);
+				adminRoles.add(adminRole);
+			}
+			administratorRoleRepository.saveAll(adminRoles);
+		}
 	}
 }

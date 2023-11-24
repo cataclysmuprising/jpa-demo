@@ -30,10 +30,18 @@ public class AdminValidator extends BaseValidator {
 		//Name
 		validateIsEmpty(new FieldValidator("name", "Name", adminDto.getName(), errors));
 		validateIsValidMaxValue(new FieldValidator("name", "Name", adminDto.getName(), errors), 50);
-		//Name
-		validateIsEmpty(new FieldValidator("loginId", "Login ID", adminDto.getLoginId(), errors));
-		validateIsValidMaxValue(new FieldValidator("loginId", "Login ID", adminDto.getLoginId(), errors), 50);
+
+		// Roles
+		validateIsEmpty(new FieldValidator("roleIds", "Role", adminDto.getRoleIds(), errors));
+
+		// Status
+		validateIsEmpty(new FieldValidator("status", "Status", adminDto.getStatus(), errors));
+
 		if (pageMode == PageMode.CREATE) {
+			//Login ID
+			validateIsEmpty(new FieldValidator("loginId", "Login ID", adminDto.getLoginId(), errors));
+			validateIsValidMaxValue(new FieldValidator("loginId", "Login ID", adminDto.getLoginId(), errors), 50);
+
 			if (errors.getFieldErrors("loginId").size() == 0) {
 
 				AdministratorCriteria criteria = new AdministratorCriteria();

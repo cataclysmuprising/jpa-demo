@@ -69,7 +69,7 @@
                     <thead>
                     <tr>
                         <th data-sort-key="name">Name</th>
-                        <th>Status</th>
+                        <th data-sort-key="status">Status</th>
                         <!-- <c:if test="${adminDetail or adminEdit or adminRemove}">
 
                          </c:if>-->
@@ -83,5 +83,9 @@
         </div>
     </section>
     <!-- /Main content -->
+
+    <!-- Common Delete Confirm modal -->
+    <div th:replace="~{/fragments/others/modals :: modal-confirm-delete}"></div>
+    <!-- /Common Delete Confirm modal -->
 </div>
 </html>

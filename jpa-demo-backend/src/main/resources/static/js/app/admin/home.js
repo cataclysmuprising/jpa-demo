@@ -44,7 +44,6 @@ function initDataTable() {
 
             },
             "sClass": "text-center",
-            "bSortable": false,
         },];
     if (hasAuthority("adminDetail") || hasAuthority("adminEdit") || hasAuthority("adminRemove")) {
         columns.push({
@@ -52,21 +51,21 @@ function initDataTable() {
                 let detailButton = {
                     label: "View",
                     authorityName: "adminDetail",
-                    url: getContextPath() + "/admins/" + full.id,
+                    url: getContextPath() + "/sec/admins/" + full.id,
                     styleClass: "",
                     data_id: full.id
                 };
                 let editButton = {
                     label: "Edit",
                     authorityName: "adminEdit",
-                    url: getContextPath() + "/admins/" + full.id + '/edit',
+                    url: getContextPath() + "/sec/admins/" + full.id + '/edit',
                     styleClass: "",
                     data_id: full.id
                 };
                 let removeButton = {
                     label: "Remove",
                     authorityName: "adminRemove",
-                    url: getContextPath() + "/admins/" + full.id + '/delete',
+                    url: getContextPath() + "/sec/admins/" + full.id + '/delete',
                     styleClass: "remove",
                     data_id: full.id
                 };
